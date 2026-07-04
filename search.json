@@ -399,98 +399,154 @@
     "href": "modules/02-steps/01-first-step-slides.html",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "",
-    "text": "— title: “Step 1: Configure Development and Production Profiles in Spring Boot” author: “AWS Lightsail Deployment Course” date: last-modified format: revealjs: default pdf: toc: true number-sections: true colorlinks: true draft: true —"
+    "text": "— title: “Step 1: Configure Development and Production Profiles in Spring Boot” author: “AWS Lightsail Deployment Course” date: last-modified format: revealjs: default pdf: toc: true number-sections: true colorlinks: true draft: true —",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#configure-development-and-production-profiles-in-spring-boot",
     "href": "modules/02-steps/01-first-step-slides.html#configure-development-and-production-profiles-in-spring-boot",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Configure Development and Production Profiles in Spring Boot",
-    "text": "Configure Development and Production Profiles in Spring Boot\n  Preparing your Spring Boot application for seamless deployment to AWS Lightsail\n\nWelcome to step 1 of deploying Spring Boot apps to AWS Lightsail. Today we’ll configure separate application profiles for development and production environments."
+    "text": "Configure Development and Production Profiles in Spring Boot\n  Preparing your Spring Boot application for seamless deployment to AWS Lightsail\n\nWelcome to step 1 of deploying Spring Boot apps to AWS Lightsail. Today we’ll configure separate application profiles for development and production environments.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#why-spring-boot-profiles-matter",
     "href": "modules/02-steps/01-first-step-slides.html#why-spring-boot-profiles-matter",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Why Spring Boot Profiles Matter",
-    "text": "Why Spring Boot Profiles Matter\n\n\nDevelopment Environment\n\nLocal database connections\nDebug logging enabled\nDevelopment-friendly settings\n\n\nProduction Environment\n\nCloud database connections\nOptimized performance settings\nSecurity-focused configuration\n\n\n\n\nProfiles allow you to segregate application configuration and make it available only in certain environments. This prevents hardcoding production credentials and enables local testing with development databases."
+    "text": "Why Spring Boot Profiles Matter\n\n\nDevelopment Environment\n\nLocal database connections\nDebug logging enabled\nDevelopment-friendly settings\n\n\nProduction Environment\n\nCloud database connections\nOptimized performance settings\nSecurity-focused configuration\n\n\n\n\nProfiles allow you to segregate application configuration and make it available only in certain environments. This prevents hardcoding production credentials and enables local testing with development databases.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#base-configuration-setup",
     "href": "modules/02-steps/01-first-step-slides.html#base-configuration-setup",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Base Configuration Setup",
-    "text": "Base Configuration Setup\nCreate application.properties with common settings:\n# Application name and basic settings\nspring.application.name=my-spring-app\nserver.servlet.context-path=/\n\n# Default active profile\nspring.profiles.active=dev\n\n# JPA/Hibernate common settings\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.show-sql=false\n\nThe base configuration contains settings that apply to all environments. Notice we set the default profile to ‘dev’ for local development convenience."
+    "text": "Base Configuration Setup\nCreate application.properties with common settings:\n# Application name and basic settings\nspring.application.name=my-spring-app\nserver.servlet.context-path=/\n\n# Default active profile\nspring.profiles.active=dev\n\n# JPA/Hibernate common settings\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.show-sql=false\n\nThe base configuration contains settings that apply to all environments. Notice we set the default profile to ‘dev’ for local development convenience.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#development-profile-configuration",
     "href": "modules/02-steps/01-first-step-slides.html#development-profile-configuration",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Development Profile Configuration",
-    "text": "Development Profile Configuration\nCreate application-dev.properties:\n# Local MySQL database configuration\nspring.datasource.url=jdbc:mysql://localhost:3306/myapp_dev\nspring.datasource.username=dev_user\nspring.datasource.password=dev_password\n\n# Development-specific settings\nspring.jpa.show-sql=true\nlogging.level.org.springframework.web=DEBUG\nserver.port=8080\n\nThe development profile uses local database connections and enables verbose logging to help with debugging during development."
+    "text": "Development Profile Configuration\nCreate application-dev.properties:\n# Local MySQL database configuration\nspring.datasource.url=jdbc:mysql://localhost:3306/myapp_dev\nspring.datasource.username=dev_user\nspring.datasource.password=dev_password\n\n# Development-specific settings\nspring.jpa.show-sql=true\nlogging.level.org.springframework.web=DEBUG\nserver.port=8080\n\nThe development profile uses local database connections and enables verbose logging to help with debugging during development.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#production-profile-configuration",
     "href": "modules/02-steps/01-first-step-slides.html#production-profile-configuration",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Production Profile Configuration",
-    "text": "Production Profile Configuration\nCreate application-prod.properties:\n# Production database with environment variables\nspring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/myapp_prod}\nspring.datasource.username=${DB_USERNAME:prod_user}\nspring.datasource.password=${DB_PASSWORD:secure_password}\n\n# Production optimizations\nspring.jpa.show-sql=false\nspring.jpa.hibernate.ddl-auto=validate\nserver.compression.enabled=true\n\nProduction profile uses environment variables for database configuration, enabling secure credential management without hardcoding sensitive information."
+    "text": "Production Profile Configuration\nCreate application-prod.properties:\n# Production database with environment variables\nspring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/myapp_prod}\nspring.datasource.username=${DB_USERNAME:prod_user}\nspring.datasource.password=${DB_PASSWORD:secure_password}\n\n# Production optimizations\nspring.jpa.show-sql=false\nspring.jpa.hibernate.ddl-auto=validate\nserver.compression.enabled=true\n\nProduction profile uses environment variables for database configuration, enabling secure credential management without hardcoding sensitive information.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#environment-variables-in-production",
     "href": "modules/02-steps/01-first-step-slides.html#environment-variables-in-production",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Environment Variables in Production",
-    "text": "Environment Variables in Production\n\n\nSyntax: ${VARIABLE_NAME:default_value}\nBenefits:\n\nSecure credential management\nEnvironment-specific overrides\nNo hardcoded production secrets\nEasy configuration changes\n\n\nspring.datasource.url=\n  ${DB_URL:default}\n\nspring.datasource.username=\n  ${DB_USERNAME:user}\n\nspring.datasource.password=\n  ${DB_PASSWORD:pass}\n\n\n\nThe ${} syntax allows overriding configuration values with environment variables while providing fallback defaults. This is crucial for cloud deployments."
+    "text": "Environment Variables in Production\n\n\nSyntax: ${VARIABLE_NAME:default_value}\nBenefits:\n\nSecure credential management\nEnvironment-specific overrides\nNo hardcoded production secrets\nEasy configuration changes\n\n\nspring.datasource.url=\n  ${DB_URL:default}\n\nspring.datasource.username=\n  ${DB_USERNAME:user}\n\nspring.datasource.password=\n  ${DB_PASSWORD:pass}\n\n\n\nThe ${} syntax allows overriding configuration values with environment variables while providing fallback defaults. This is crucial for cloud deployments.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#build-configuration-updates",
     "href": "modules/02-steps/01-first-step-slides.html#build-configuration-updates",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Build Configuration Updates",
-    "text": "Build Configuration Updates\n\nMaven Dependencies\n&lt;dependency&gt;\n    &lt;groupId&gt;mysql&lt;/groupId&gt;\n    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;\n    &lt;scope&gt;runtime&lt;/scope&gt;\n&lt;/dependency&gt;\n\n&lt;dependency&gt;\n    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\n    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;\n&lt;/dependency&gt;\n\nEnsure your build configuration includes the necessary dependencies for MySQL connectivity and JPA data access."
+    "text": "Build Configuration Updates\n\nMaven Dependencies\n&lt;dependency&gt;\n    &lt;groupId&gt;mysql&lt;/groupId&gt;\n    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;\n    &lt;scope&gt;runtime&lt;/scope&gt;\n&lt;/dependency&gt;\n\n&lt;dependency&gt;\n    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\n    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;\n&lt;/dependency&gt;\n\nEnsure your build configuration includes the necessary dependencies for MySQL connectivity and JPA data access.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#testing-your-profiles",
     "href": "modules/02-steps/01-first-step-slides.html#testing-your-profiles",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Testing Your Profiles",
-    "text": "Testing Your Profiles\n\nDevelopment Profile\n# Run with development profile (default)\nmvn spring-boot:run\n\n# Or explicitly specify\nmvn spring-boot:run -Dspring-boot.run.profiles=dev\n\n\nProduction Profile Testing\n# Set environment variables\nexport DB_URL=\"jdbc:mysql://localhost:3306/myapp_test\"\nexport DB_USERNAME=\"test_user\"\n\n# Run with production profile\nmvn spring-boot:run -Dspring-boot.run.profiles=prod\n\nTesting both profiles locally ensures your configuration works correctly before deployment. The production profile test helps verify environment variable substitution works."
+    "text": "Testing Your Profiles\n\nDevelopment Profile\n# Run with development profile (default)\nmvn spring-boot:run\n\n# Or explicitly specify\nmvn spring-boot:run -Dspring-boot.run.profiles=dev\n\n\nProduction Profile Testing\n# Set environment variables\nexport DB_URL=\"jdbc:mysql://localhost:3306/myapp_test\"\nexport DB_USERNAME=\"test_user\"\n\n# Run with production profile\nmvn spring-boot:run -Dspring-boot.run.profiles=prod\n\nTesting both profiles locally ensures your configuration works correctly before deployment. The production profile test helps verify environment variable substitution works.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#building-for-production",
     "href": "modules/02-steps/01-first-step-slides.html#building-for-production",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Building for Production",
-    "text": "Building for Production\nCreate deployment-ready JAR:\n# Clean and build the project\nmvn clean package\n\n# Verify the JAR was created\nls -la target/*.jar\nOutput:\n-rw-r--r-- 1 user user 45M Dec  1 10:30 my-spring-app-1.0.0.jar\n\nThe executable JAR contains your application and all dependencies, making it perfect for cloud deployment. This single file can be transferred to your Lightsail instance."
+    "text": "Building for Production\nCreate deployment-ready JAR:\n# Clean and build the project\nmvn clean package\n\n# Verify the JAR was created\nls -la target/*.jar\nOutput:\n-rw-r--r-- 1 user user 45M Dec  1 10:30 my-spring-app-1.0.0.jar\n\nThe executable JAR contains your application and all dependencies, making it perfect for cloud deployment. This single file can be transferred to your Lightsail instance.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#configuration-verification-checklist",
     "href": "modules/02-steps/01-first-step-slides.html#configuration-verification-checklist",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Configuration Verification Checklist",
-    "text": "Configuration Verification Checklist\n\n\n✓ Created application.properties, application-dev.properties, and application-prod.properties\n✓ Application starts successfully with development profile\n✓ Executable JAR builds without errors\n✓ Database dependencies configured in build file\n✓ Environment variable syntax working in production profile\n\n\n\nBefore proceeding to the next step, ensure all these checkpoints are completed. This foundation is crucial for successful deployment."
+    "text": "Configuration Verification Checklist\n\n\n✓ Created application.properties, application-dev.properties, and application-prod.properties\n✓ Application starts successfully with development profile\n✓ Executable JAR builds without errors\n✓ Database dependencies configured in build file\n✓ Environment variable syntax working in production profile\n\n\n\nBefore proceeding to the next step, ensure all these checkpoints are completed. This foundation is crucial for successful deployment.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#key-benefits-achieved",
     "href": "modules/02-steps/01-first-step-slides.html#key-benefits-achieved",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Key Benefits Achieved",
-    "text": "Key Benefits Achieved\n\n\nDevelopment Benefits\n\nLocal development database\nDebug logging enabled\nFast development cycle\nEasy configuration changes\n\n\nProduction Benefits\n\nSecure credential management\nOptimized performance settings\nEnvironment-specific configurations\nCloud-ready deployment package\n\n\n\n\nThis profile configuration provides the foundation for a professional deployment workflow, separating concerns between development and production environments."
+    "text": "Key Benefits Achieved\n\n\nDevelopment Benefits\n\nLocal development database\nDebug logging enabled\nFast development cycle\nEasy configuration changes\n\n\nProduction Benefits\n\nSecure credential management\nOptimized performance settings\nEnvironment-specific configurations\nCloud-ready deployment package\n\n\n\n\nThis profile configuration provides the foundation for a professional deployment workflow, separating concerns between development and production environments.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#whats-next",
     "href": "modules/02-steps/01-first-step-slides.html#whats-next",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "What’s Next?",
-    "text": "What’s Next?\nComing Up in Step 2:\n\nCreate AWS Lightsail instance\nConfigure Linux environment\nSet up MySQL database\nPrepare for application deployment\n\nYour Spring Boot application is now production-ready with proper profile configuration!\n\nWith profiles configured, your application can seamlessly transition from local development to AWS Lightsail. Next, we’ll create the cloud infrastructure to host your application."
+    "text": "What’s Next?\nComing Up in Step 2:\n\nCreate AWS Lightsail instance\nConfigure Linux environment\nSet up MySQL database\nPrepare for application deployment\n\nYour Spring Boot application is now production-ready with proper profile configuration!\n\nWith profiles configured, your application can seamlessly transition from local development to AWS Lightsail. Next, we’ll create the cloud infrastructure to host your application.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/01-first-step-slides.html#summary",
     "href": "modules/02-steps/01-first-step-slides.html#summary",
     "title": "Deploy Spring Boot Apps to AWS Lightsail",
     "section": "Summary",
-    "text": "Summary\n\nSpring Boot profiles enable environment-specific configurations\nEnvironment variables provide secure credential management\nExecutable JARs simplify deployment processes\nProper configuration is essential for cloud deployments\n\nYour application is now ready for AWS Lightsail deployment!\n\nYou’ve successfully configured a Spring Boot application with separate development and production profiles, created a deployment-ready JAR, and established the foundation for secure cloud deployment."
+    "text": "Summary\n\nSpring Boot profiles enable environment-specific configurations\nEnvironment variables provide secure credential management\nExecutable JARs simplify deployment processes\nProper configuration is essential for cloud deployments\n\nYour application is now ready for AWS Lightsail deployment!\n\nYou’ve successfully configured a Spring Boot application with separate development and production profiles, created a deployment-ready JAR, and established the foundation for secure cloud deployment.",
+    "crumbs": [
+      "Steps",
+      "First Step Slides"
+    ]
   },
   {
     "objectID": "modules/02-steps/02-second-step.html",
@@ -904,77 +960,121 @@
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#overview",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Overview",
-    "text": "Overview\nWhat you’ll need before deploying Spring Boot apps to AWS Lightsail:\n\nAWS Account and Services\nDevelopment Environment Setup\n\nCommand Line Tools\nSpring Boot Knowledge\nLinux and Server Basics\nNetwork and Security Fundamentals\n\n\nThis lesson ensures students have all necessary prerequisites before starting the deployment process. We’ll cover accounts, tools, and foundational knowledge needed for success."
+    "text": "Overview\nWhat you’ll need before deploying Spring Boot apps to AWS Lightsail:\n\nAWS Account and Services\nDevelopment Environment Setup\n\nCommand Line Tools\nSpring Boot Knowledge\nLinux and Server Basics\nNetwork and Security Fundamentals\n\n\nThis lesson ensures students have all necessary prerequisites before starting the deployment process. We’ll cover accounts, tools, and foundational knowledge needed for success.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#aws-account-requirements",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#aws-account-requirements",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "AWS Account Requirements",
-    "text": "AWS Account Requirements\nEssential Services\n\nAWS Account with billing information\nLightsail Service access\nOptional: Custom domain from registrar\n\n\n\nSetup Steps:\n\nVisit aws.amazon.com\nCreate account\nAdd payment method\nVerify access\n\n\nFree Tier Benefits:\n\n750 hours/month (first month)\nPerfect for learning\nNo upfront costs\n\n\n\nAWS requires payment information even for free tier services. The Lightsail free tier provides excellent learning opportunities with 750 hours of usage in the first month."
+    "text": "AWS Account Requirements\nEssential Services\n\nAWS Account with billing information\nLightsail Service access\nOptional: Custom domain from registrar\n\n\n\nSetup Steps:\n\nVisit aws.amazon.com\nCreate account\nAdd payment method\nVerify access\n\n\nFree Tier Benefits:\n\n750 hours/month (first month)\nPerfect for learning\nNo upfront costs\n\n\n\nAWS requires payment information even for free tier services. The Lightsail free tier provides excellent learning opportunities with 750 hours of usage in the first month.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#java-development-environment",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#java-development-environment",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Java Development Environment",
-    "text": "Java Development Environment\nCore Requirements\n\nJDK 17 or later\nBuild tool: Maven or Gradle\nIDE: IntelliJ IDEA, VS Code, or Eclipse\n\n# Verify your setup\njava -version\njavac -version\nmvn -version\ngradle -version\n\nStudents should verify their Java environment is properly configured. We recommend JDK 17+ for the latest Spring Boot features and long-term support."
+    "text": "Java Development Environment\nCore Requirements\n\nJDK 17 or later\nBuild tool: Maven or Gradle\nIDE: IntelliJ IDEA, VS Code, or Eclipse\n\n# Verify your setup\njava -version\njavac -version\nmvn -version\ngradle -version\n\nStudents should verify their Java environment is properly configured. We recommend JDK 17+ for the latest Spring Boot features and long-term support.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#command-line-tools",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#command-line-tools",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Command Line Tools",
-    "text": "Command Line Tools\nEssential Tools\n\nSSH Client: Connect to Lightsail instances\nGit: Version control for your project\nAWS CLI: Advanced configurations (recommended)\n\n# Test your tools\nssh -V\ngit --version\naws --version\n\nSSH is critical for server management. Git is essential for project management. AWS CLI provides additional flexibility but isn’t strictly required for basic deployments."
+    "text": "Command Line Tools\nEssential Tools\n\nSSH Client: Connect to Lightsail instances\nGit: Version control for your project\nAWS CLI: Advanced configurations (recommended)\n\n# Test your tools\nssh -V\ngit --version\naws --version\n\nSSH is critical for server management. Git is essential for project management. AWS CLI provides additional flexibility but isn’t strictly required for basic deployments.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#spring-boot-knowledge-prerequisites",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#spring-boot-knowledge-prerequisites",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Spring Boot Knowledge Prerequisites",
-    "text": "Spring Boot Knowledge Prerequisites\nCore Concepts You Need\n\n\nApplication Structure:\n\nSpring Boot Starters\nApplication Properties\nConfiguration Profiles\nAuto-configuration\n\n\nWeb Development:\n\nREST Controllers\nDatabase Integration\nJSON Serialization\nHTTP Methods\n\n\n\nStudents should understand basic Spring Boot concepts. We’ll provide a sample application for those who need it, but familiarity with these concepts is important for troubleshooting."
+    "text": "Spring Boot Knowledge Prerequisites\nCore Concepts You Need\n\n\nApplication Structure:\n\nSpring Boot Starters\nApplication Properties\nConfiguration Profiles\nAuto-configuration\n\n\nWeb Development:\n\nREST Controllers\nDatabase Integration\nJSON Serialization\nHTTP Methods\n\n\n\nStudents should understand basic Spring Boot concepts. We’ll provide a sample application for those who need it, but familiarity with these concepts is important for troubleshooting.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#linux-command-line-basics",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#linux-command-line-basics",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Linux Command Line Basics",
-    "text": "Linux Command Line Basics\nEssential Commands\n# File operations\nls, cd, mkdir, rm, cp, mv\n\n# File viewing/editing  \ncat, less, nano, vi\n\n# Process management\nps, kill, systemctl\n\n# Network utilities\ncurl, wget, netstat\n\nThese Linux commands are essential for server administration. Students will use these regularly when managing their Lightsail instances and troubleshooting deployments."
+    "text": "Linux Command Line Basics\nEssential Commands\n# File operations\nls, cd, mkdir, rm, cp, mv\n\n# File viewing/editing  \ncat, less, nano, vi\n\n# Process management\nps, kill, systemctl\n\n# Network utilities\ncurl, wget, netstat\n\nThese Linux commands are essential for server administration. Students will use these regularly when managing their Lightsail instances and troubleshooting deployments.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#file-permissions-and-services",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#file-permissions-and-services",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "File Permissions and Services",
-    "text": "File Permissions and Services\nSystem Administration Basics\n\n\nFile Permissions:\nchmod 755 filename\nsudo chown user:group filename\n\nService Management:\nsudo systemctl start service-name\nsudo systemctl enable service-name\nsudo systemctl status service-name\n\n\nUnderstanding file permissions and systemd services is crucial for Spring Boot deployment. We’ll cover these in detail later, but basic familiarity helps."
+    "text": "File Permissions and Services\nSystem Administration Basics\n\n\nFile Permissions:\nchmod 755 filename\nsudo chown user:group filename\n\nService Management:\nsudo systemctl start service-name\nsudo systemctl enable service-name\nsudo systemctl status service-name\n\n\nUnderstanding file permissions and systemd services is crucial for Spring Boot deployment. We’ll cover these in detail later, but basic familiarity helps.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#network-and-security-fundamentals",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#network-and-security-fundamentals",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Network and Security Fundamentals",
-    "text": "Network and Security Fundamentals\nKey Concepts\nCommon Ports:\n\nHTTP: 80, HTTPS: 443\nSSH: 22, MySQL: 3306\nSpring Boot Default: 8080\n\nSecurity Basics:\n\nInbound vs. Outbound rules\nPort restrictions\nIP-based access control\n\n\nUnderstanding ports and basic firewall concepts is essential for configuring Lightsail security groups and ensuring your application is accessible while remaining secure."
+    "text": "Network and Security Fundamentals\nKey Concepts\nCommon Ports:\n\nHTTP: 80, HTTPS: 443\nSSH: 22, MySQL: 3306\nSpring Boot Default: 8080\n\nSecurity Basics:\n\nInbound vs. Outbound rules\nPort restrictions\nIP-based access control\n\n\nUnderstanding ports and basic firewall concepts is essential for configuring Lightsail security groups and ensuring your application is accessible while remaining secure.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#pre-deployment-checklist",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#pre-deployment-checklist",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Pre-Deployment Checklist",
-    "text": "Pre-Deployment Checklist\nVerify Your Setup ✅\n\nAWS account with billing configured\nJDK 17+ and build tools installed\nGit and SSH client working\nBasic Spring Boot knowledge\nComfortable with command line\nSample application ready (or will use ours)\n\n\nStudents should work through this checklist before proceeding. Having everything ready prevents frustration during the actual deployment process."
+    "text": "Pre-Deployment Checklist\nVerify Your Setup ✅\n\nAWS account with billing configured\nJDK 17+ and build tools installed\nGit and SSH client working\nBasic Spring Boot knowledge\nComfortable with command line\nSample application ready (or will use ours)\n\n\nStudents should work through this checklist before proceeding. Having everything ready prevents frustration during the actual deployment process.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#testing-your-environment",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#testing-your-environment",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Testing Your Environment",
-    "text": "Testing Your Environment\nQuick Validation Test\nCreate and run a simple Spring Boot “Hello World”:\n# Create project\nspring init --dependencies=web my-test-app\n\n# Run locally\ncd my-test-app\n./mvnw spring-boot:run\n\n# Test\ncurl http://localhost:8080\n\nThis quick test validates that the entire development environment is working correctly. Students should be able to create, build, and run a basic Spring Boot application before moving to deployment."
+    "text": "Testing Your Environment\nQuick Validation Test\nCreate and run a simple Spring Boot “Hello World”:\n# Create project\nspring init --dependencies=web my-test-app\n\n# Run locally\ncd my-test-app\n./mvnw spring-boot:run\n\n# Test\ncurl http://localhost:8080\n\nThis quick test validates that the entire development environment is working correctly. Students should be able to create, build, and run a basic Spring Boot application before moving to deployment.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#summary---ready-for-deployment",
     "href": "modules/01-prerequisites/01-prerequisites-slides.html#summary---ready-for-deployment",
     "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
     "section": "Summary - Ready for Deployment",
-    "text": "Summary - Ready for Deployment\nWith these prerequisites in place:\n\nAWS Account: Ready for Lightsail instances\nDevelopment Tools: Complete Java environment\nCommand Line Skills: SSH, Git, Linux basics\nSpring Boot Foundation: Understanding core concepts\nSystem Knowledge: Permissions, services, networking\n\nNext: Configuring Spring Boot profiles for deployment\n\nThis comprehensive preparation ensures students can follow along confidently and troubleshoot independently. Taking time to verify each requirement saves significant time and frustration during deployment."
+    "text": "Summary - Ready for Deployment\nWith these prerequisites in place:\n\nAWS Account: Ready for Lightsail instances\nDevelopment Tools: Complete Java environment\nCommand Line Skills: SSH, Git, Linux basics\nSpring Boot Foundation: Understanding core concepts\nSystem Knowledge: Permissions, services, networking\n\nNext: Configuring Spring Boot profiles for deployment\n\nThis comprehensive preparation ensures students can follow along confidently and troubleshoot independently. Taking time to verify each requirement saves significant time and frustration during deployment.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites Slides"
+    ]
   },
   {
     "objectID": "modules/01-prerequisites/01-prerequisites.html",
