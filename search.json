@@ -1,0 +1,1485 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "Welcome to this comprehensive guide on deploying Spring Boot applications to AWS Lightsail! This course will take you through the complete process of moving your Spring Boot application from development to production on AWS Lightsail, one of AWS’s most beginner-friendly cloud services.\n\n\nBy the end of this course, you’ll be able to:\n\nConfigure Spring Boot applications with separate development and production profiles\nSet up and manage AWS Lightsail instances\nDeploy MySQL databases on Lightsail\nConfigure reverse proxies with Nginx\nSet up custom domains with SSL certificates\nTroubleshoot common deployment issues\n\n\n\n\nAWS Lightsail is Amazon’s simplified cloud platform that offers virtual private servers, managed databases, and networking capabilities at predictable, low monthly prices. It’s perfect for developers who want the power of AWS without the complexity.\n\n\n\n\n\n\nNotePerfect for Spring Boot\n\n\n\nLightsail provides an ideal environment for Spring Boot applications with its Linux-based virtual machines, integrated load balancing, and simple database management.\n\n\n\n\n\nPredictable Pricing: Fixed monthly costs starting at between €5 - €7 / month\nSimple Management: Easy-to-use console with one-click deployments\nIntegrated Services: Built-in networking, storage, and database options\nAWS Integration: Seamlessly connects to other AWS services when needed\n\n\n\n\n\n\n\n\n\n\ngraph TB\n    A[Local Development] --&gt; B[Spring Boot App with Profiles]\n    B --&gt; C[AWS Lightsail Instance]\n    C --&gt; D[MySQL Database]\n    C --&gt; E[Nginx Reverse Proxy]\n    E --&gt; F[Custom Domain + SSL]\n    \n    subgraph \"AWS Lightsail\"\n        C\n        D\n        G[Load Balancer]\n        H[Static IP]\n    end\n    \n    F --&gt; G\n    G --&gt; E\n\n\n\n\n\n\n\n\n\nThroughout this course, we’ll deploy a complete Spring Boot application stack that includes:\n\nApplication Layer: Spring Boot application configured for production\nDatabase Layer: MySQL database for persistent data storage\nWeb Server Layer: Nginx as a reverse proxy for better performance and security\nSecurity Layer: SSL certificates for HTTPS encryption\nDomain Layer: Custom domain configuration for professional deployment\n\n\n\n\nBefore starting this course, you should have:\n\nJava Development: Basic knowledge of Spring Boot framework\nAWS Account: Active AWS account with billing configured\nCommand Line: Familiarity with terminal/command prompt\nWeb Concepts: Understanding of HTTP, domains, and basic networking\n\n\n\n\n\n\n\nTipEstimated Time\n\n\n\nThis course typically takes 3-4 hours to complete, including hands-on practice and testing.\n\n\n\n\n\nThis course is organized into logical steps that build upon each other:\n\n\nWe’ll start by ensuring you have everything needed for successful deployment.\n\n\n\nThe core of the course covers six essential steps:\n\nConfigure Development and Production Profiles - Set up your Spring Boot application for different environments\nCreate and Configure AWS Lightsail Instance - Launch and configure your cloud server\nSet Up MySQL Database - Configure persistent data storage\nDeploy Spring Boot Application - Get your application running on the server\nConfigure Reverse Proxy - Set up Nginx for better performance and security\nSet Up Domain and SSL - Configure professional domain access with encryption\n\n\n\n\nWe’ll cover common issues and their solutions to help you resolve problems independently.\n\n\n\n\nThe deployment strategy you’ll learn in this course is used by thousands of production applications. The skills you develop will be directly applicable to:\n\nPersonal Projects: Deploy your portfolio applications professionally\nClient Work: Deliver production-ready applications to clients\nStartup Applications: Cost-effective scaling for early-stage companies\nLearning Environment: Create staging environments for testing\n\n\n\n\nOne of Lightsail’s major advantages is transparent, predictable pricing:\n\nBasic Instance: $3.50/month (512 MB RAM, 1 vCPU)\nDevelopment Instance: $5/month (1 GB RAM, 1 vCPU)\nProduction Instance: $10/month (2 GB RAM, 1 vCPU)\nMySQL Database: Starting at $15/month (1 GB RAM, 1 vCPU)\n\n\n\n\n\n\n\nNoteFree Tier Available\n\n\n\nAWS Lightsail offers a free tier for new customers, giving you one month free on select instance sizes.\n\n\n\n\n\nThroughout this course, we’ll emphasize security best practices:\n\nEnvironment Configuration: Proper separation of development and production settings\nDatabase Security: Secure database configuration and access controls\nHTTPS Configuration: Mandatory SSL certificate setup\nFirewall Configuration: Proper network security rules\nApplication Security: Spring Boot security configurations for production\n\n\n\n\nReady to begin your journey to production deployment? Let’s start with the prerequisites to ensure you have everything needed for success.\nThe next section will guide you through setting up your development environment and verifying that you have all the necessary tools and accounts configured properly.\n\n\n\nThis course provides a complete, production-ready deployment solution for Spring Boot applications using AWS Lightsail. You’ll learn not just how to deploy, but how to deploy securely and professionally with proper configuration management, database setup, and SSL encryption.\nThe combination of Spring Boot’s ease of development and Lightsail’s simplified cloud management makes this an ideal starting point for developers new to cloud deployment, while still following industry best practices that scale to larger applications.\nLet’s get started with the prerequisites!",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#what-youll-learn",
+    "href": "index.html#what-youll-learn",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "By the end of this course, you’ll be able to:\n\nConfigure Spring Boot applications with separate development and production profiles\nSet up and manage AWS Lightsail instances\nDeploy MySQL databases on Lightsail\nConfigure reverse proxies with Nginx\nSet up custom domains with SSL certificates\nTroubleshoot common deployment issues",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#why-aws-lightsail",
+    "href": "index.html#why-aws-lightsail",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "AWS Lightsail is Amazon’s simplified cloud platform that offers virtual private servers, managed databases, and networking capabilities at predictable, low monthly prices. It’s perfect for developers who want the power of AWS without the complexity.\n\n\n\n\n\n\nNotePerfect for Spring Boot\n\n\n\nLightsail provides an ideal environment for Spring Boot applications with its Linux-based virtual machines, integrated load balancing, and simple database management.\n\n\n\n\n\nPredictable Pricing: Fixed monthly costs starting at between €5 - €7 / month\nSimple Management: Easy-to-use console with one-click deployments\nIntegrated Services: Built-in networking, storage, and database options\nAWS Integration: Seamlessly connects to other AWS services when needed",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#course-architecture-overview",
+    "href": "index.html#course-architecture-overview",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "graph TB\n    A[Local Development] --&gt; B[Spring Boot App with Profiles]\n    B --&gt; C[AWS Lightsail Instance]\n    C --&gt; D[MySQL Database]\n    C --&gt; E[Nginx Reverse Proxy]\n    E --&gt; F[Custom Domain + SSL]\n    \n    subgraph \"AWS Lightsail\"\n        C\n        D\n        G[Load Balancer]\n        H[Static IP]\n    end\n    \n    F --&gt; G\n    G --&gt; E",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#what-well-build",
+    "href": "index.html#what-well-build",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "Throughout this course, we’ll deploy a complete Spring Boot application stack that includes:\n\nApplication Layer: Spring Boot application configured for production\nDatabase Layer: MySQL database for persistent data storage\nWeb Server Layer: Nginx as a reverse proxy for better performance and security\nSecurity Layer: SSL certificates for HTTPS encryption\nDomain Layer: Custom domain configuration for professional deployment",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#prerequisites-overview",
+    "href": "index.html#prerequisites-overview",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "Before starting this course, you should have:\n\nJava Development: Basic knowledge of Spring Boot framework\nAWS Account: Active AWS account with billing configured\nCommand Line: Familiarity with terminal/command prompt\nWeb Concepts: Understanding of HTTP, domains, and basic networking\n\n\n\n\n\n\n\nTipEstimated Time\n\n\n\nThis course typically takes 3-4 hours to complete, including hands-on practice and testing.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#course-structure",
+    "href": "index.html#course-structure",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "This course is organized into logical steps that build upon each other:\n\n\nWe’ll start by ensuring you have everything needed for successful deployment.\n\n\n\nThe core of the course covers six essential steps:\n\nConfigure Development and Production Profiles - Set up your Spring Boot application for different environments\nCreate and Configure AWS Lightsail Instance - Launch and configure your cloud server\nSet Up MySQL Database - Configure persistent data storage\nDeploy Spring Boot Application - Get your application running on the server\nConfigure Reverse Proxy - Set up Nginx for better performance and security\nSet Up Domain and SSL - Configure professional domain access with encryption\n\n\n\n\nWe’ll cover common issues and their solutions to help you resolve problems independently.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#real-world-application",
+    "href": "index.html#real-world-application",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "The deployment strategy you’ll learn in this course is used by thousands of production applications. The skills you develop will be directly applicable to:\n\nPersonal Projects: Deploy your portfolio applications professionally\nClient Work: Deliver production-ready applications to clients\nStartup Applications: Cost-effective scaling for early-stage companies\nLearning Environment: Create staging environments for testing",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#cost-considerations",
+    "href": "index.html#cost-considerations",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "One of Lightsail’s major advantages is transparent, predictable pricing:\n\nBasic Instance: $3.50/month (512 MB RAM, 1 vCPU)\nDevelopment Instance: $5/month (1 GB RAM, 1 vCPU)\nProduction Instance: $10/month (2 GB RAM, 1 vCPU)\nMySQL Database: Starting at $15/month (1 GB RAM, 1 vCPU)\n\n\n\n\n\n\n\nNoteFree Tier Available\n\n\n\nAWS Lightsail offers a free tier for new customers, giving you one month free on select instance sizes.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#security-and-best-practices",
+    "href": "index.html#security-and-best-practices",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "Throughout this course, we’ll emphasize security best practices:\n\nEnvironment Configuration: Proper separation of development and production settings\nDatabase Security: Secure database configuration and access controls\nHTTPS Configuration: Mandatory SSL certificate setup\nFirewall Configuration: Proper network security rules\nApplication Security: Spring Boot security configurations for production",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "Ready to begin your journey to production deployment? Let’s start with the prerequisites to ensure you have everything needed for success.\nThe next section will guide you through setting up your development environment and verifying that you have all the necessary tools and accounts configured properly.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#summary",
+    "href": "index.html#summary",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "This course provides a complete, production-ready deployment solution for Spring Boot applications using AWS Lightsail. You’ll learn not just how to deploy, but how to deploy securely and professionally with proper configuration management, database setup, and SSL encryption.\nThe combination of Spring Boot’s ease of development and Lightsail’s simplified cloud management makes this an ideal starting point for developers new to cloud deployment, while still following industry best practices that scale to larger applications.\nLet’s get started with the prerequisites!",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html",
+    "href": "modules/02-steps/06-sixth-step.html",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#lecture-slides",
+    "href": "modules/02-steps/06-sixth-step.html#lecture-slides",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#introduction",
+    "href": "modules/02-steps/06-sixth-step.html#introduction",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Introduction",
+    "text": "Introduction\nIn this final step, you’ll configure a custom domain for your Spring Boot application and secure it with an SSL certificate. This will make your application accessible via a professional domain name with HTTPS encryption, providing both credibility and security for your users.",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#understanding-ssl-and-domain-configuration",
+    "href": "modules/02-steps/06-sixth-step.html#understanding-ssl-and-domain-configuration",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Understanding SSL and Domain Configuration",
+    "text": "Understanding SSL and Domain Configuration\nSSL (Secure Sockets Layer) certificates encrypt data transmitted between your users’ browsers and your server, while custom domains provide a professional, memorable way to access your application. AWS Lightsail makes both of these configurations straightforward through integrated services.\n\n\n\n\n\n\nTipWhy SSL Matters\n\n\n\nModern browsers mark HTTP sites as “Not Secure,” which can deter users. SSL certificates are now essential for any web application, and search engines favor HTTPS sites in rankings.",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#prerequisites-for-this-step",
+    "href": "modules/02-steps/06-sixth-step.html#prerequisites-for-this-step",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Prerequisites for This Step",
+    "text": "Prerequisites for This Step\nBefore proceeding, ensure you have:\n\nA registered domain name (from any domain registrar)\nAccess to your domain’s DNS management\nYour Lightsail instance running with Nginx configured (from Step 5)\nYour Spring Boot application accessible via your instance’s public IP",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#setting-up-dns-and-domain-configuration",
+    "href": "modules/02-steps/06-sixth-step.html#setting-up-dns-and-domain-configuration",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Setting Up DNS and Domain Configuration",
+    "text": "Setting Up DNS and Domain Configuration\n\nStep 1: Create a Lightsail DNS Zone\n\nIn the Lightsail console, navigate to Networking → DNS zones\nClick Create DNS zone\nEnter your domain name (e.g., example.com)\nClick Create DNS zone\n\n\n\n\n\n\n\nNoteDNS Zone Purpose\n\n\n\nThe DNS zone will manage all DNS records for your domain, making it easy to point your domain to your Lightsail instance.\n\n\n\n\nStep 2: Configure DNS Records\nOnce your DNS zone is created, you’ll need to add the following records:\n\nA Record: Point your domain to your Lightsail instance\n\nSubdomain: Leave blank for root domain, or enter www for www subdomain\nResolves to: Select your Lightsail instance from the dropdown\n\nCNAME Record (optional, for www subdomain):\n\nSubdomain: www\nMaps to: Your root domain (e.g., example.com)\n\n\n# Example DNS configuration\n# A Record: example.com → Your Lightsail Instance IP\n# CNAME: www.example.com → example.com\n\n\nStep 3: Update Your Domain Registrar’s Name Servers\n\nCopy the name servers provided by Lightsail (they’ll look like ns-xxx.awsdns-xxx.com)\nLog into your domain registrar’s control panel\nReplace the existing name servers with the Lightsail name servers\nSave the changes\n\n\n\n\n\n\n\nWarningDNS Propagation Time\n\n\n\nDNS changes can take up to 48 hours to propagate worldwide, though they usually take effect within a few hours. Be patient during this process.",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#installing-and-configuring-ssl-certificate",
+    "href": "modules/02-steps/06-sixth-step.html#installing-and-configuring-ssl-certificate",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Installing and Configuring SSL Certificate",
+    "text": "Installing and Configuring SSL Certificate\n\nStep 1: Install Certbot\nSSH into your Lightsail instance and install Certbot, which will manage your SSL certificates:\n# Update package list\nsudo apt update\n\n# Install Certbot and Nginx plugin\nsudo apt install certbot python3-certbot-nginx -y\n\n# Verify installation\ncertbot --version\n\n\nStep 2: Configure Nginx for Your Domain\nUpdate your Nginx configuration to include your domain name:\n# Edit the Nginx configuration\nsudo nano /etc/nginx/sites-available/default\nUpdate the server block to include your domain:\nserver {\n    listen 80;\n    server_name example.com www.example.com;  # Replace with your domain\n\n    location / {\n        proxy_pass http://localhost:8080;\n        proxy_set_header Host $host;\n        proxy_set_header X-Real-IP $remote_addr;\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n        proxy_set_header X-Forwarded-Proto $scheme;\n    }\n}\nTest and reload the configuration:\n# Test configuration\nsudo nginx -t\n\n# Reload Nginx\nsudo systemctl reload nginx\n\n\nStep 3: Obtain SSL Certificate\nUse Certbot to automatically obtain and install an SSL certificate:\n# Obtain and install SSL certificate\nsudo certbot --nginx -d example.com -d www.example.com\n\n# Follow the prompts:\n# 1. Enter your email address for certificate expiration notifications\n# 2. Agree to terms of service\n# 3. Choose whether to share email with EFF (optional)\n# 4. Certbot will automatically configure HTTPS redirect\n\n\n\n\n\n\nTipAutomatic HTTPS Redirect\n\n\n\nCertbot will automatically modify your Nginx configuration to redirect HTTP traffic to HTTPS, ensuring all connections are secure.",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#configuring-automatic-certificate-renewal",
+    "href": "modules/02-steps/06-sixth-step.html#configuring-automatic-certificate-renewal",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Configuring Automatic Certificate Renewal",
+    "text": "Configuring Automatic Certificate Renewal\nSSL certificates from Let’s Encrypt expire every 90 days, but Certbot can automatically renew them:\n\nStep 1: Test Automatic Renewal\n# Test the renewal process (dry run)\nsudo certbot renew --dry-run\n\n\nStep 2: Set Up Automatic Renewal\nThe automatic renewal should already be configured via systemd timer, but you can verify:\n# Check if the timer is active\nsudo systemctl status certbot.timer\n\n# Enable the timer if it's not active\nsudo systemctl enable certbot.timer\nsudo systemctl start certbot.timer",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#updating-spring-boot-configuration-for-https",
+    "href": "modules/02-steps/06-sixth-step.html#updating-spring-boot-configuration-for-https",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Updating Spring Boot Configuration for HTTPS",
+    "text": "Updating Spring Boot Configuration for HTTPS\n\nStep 1: Configure HTTPS in Application Properties\nUpdate your production profile to handle HTTPS properly:\n# src/main/resources/application-prod.properties\n\n# Server configuration for HTTPS\nserver.forward-headers-strategy=native\nserver.tomcat.use-relative-redirects=true\n\n# Security headers\nserver.servlet.session.cookie.secure=true\nserver.servlet.session.cookie.http-only=true\n\n\nStep 2: Update Security Configuration (if applicable)\nIf you’re using Spring Security, ensure it’s configured for HTTPS:\n@Configuration\n@EnableWebSecurity\npublic class SecurityConfig {\n    \n    @Bean\n    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {\n        http\n            .requiresChannel(channel -&gt; \n                channel.requestMatchers(r -&gt; r.getHeader(\"X-Forwarded-Proto\") != null)\n                       .requiresSecure())\n            .headers(headers -&gt; \n                headers.httpStrictTransportSecurity(hstsConfig -&gt; \n                    hstsConfig.maxAgeInSeconds(31536000)\n                             .includeSubdomains(true)));\n        \n        return http.build();\n    }\n}\n\n\nStep 3: Rebuild and Deploy\nRebuild your application with the HTTPS configurations:\n# On your development machine\n./mvnw clean package -DskipTests\n\n# Transfer to Lightsail instance\nscp target/myapp.jar ubuntu@your-domain.com:~/\n\n# On Lightsail instance\nsudo systemctl stop myapp\nsudo cp /home/ubuntu/myapp.jar /opt/myapp/\nsudo systemctl start myapp",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#verifying-your-https-setup",
+    "href": "modules/02-steps/06-sixth-step.html#verifying-your-https-setup",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Verifying Your HTTPS Setup",
+    "text": "Verifying Your HTTPS Setup\n\nStep 1: Test Domain Access\n\nOpen your browser and navigate to https://yourdomain.com\nVerify the SSL certificate is valid (look for the lock icon)\nCheck that HTTP automatically redirects to HTTPS\n\n\n\nStep 2: Test SSL Configuration\nUse online tools to verify your SSL setup:\n# Test SSL certificate from command line\ncurl -I https://yourdomain.com\n\n# Check SSL rating\n# Visit: https://www.ssllabs.com/ssltest/\n\n\nStep 3: Monitor Certificate Status\n# Check certificate expiration\nsudo certbot certificates\n\n# View certificate details\nopenssl x509 -in /etc/letsencrypt/live/yourdomain.com/cert.pem -text -noout\n\n\n\n\n\n\nNoteSSL Certificate Monitoring\n\n\n\nConsider setting up monitoring to alert you if certificate renewal fails, though Certbot’s automatic renewal is very reliable.",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#troubleshooting-common-issues",
+    "href": "modules/02-steps/06-sixth-step.html#troubleshooting-common-issues",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Troubleshooting Common Issues",
+    "text": "Troubleshooting Common Issues\n\nDomain Not Resolving\nIf your domain isn’t resolving to your Lightsail instance:\n\nVerify DNS records in Lightsail console\nCheck that name servers are correctly set at your registrar\nUse dig or nslookup to test DNS resolution:\n\n# Test DNS resolution\ndig yourdomain.com\nnslookup yourdomain.com\n\n\nSSL Certificate Issues\nIf Certbot fails to obtain certificates:\n\nEnsure your domain is resolving correctly\nCheck that port 80 is accessible (Certbot needs it for verification)\nVerify Nginx is running and serving your domain\n\n# Check if domain is accessible\ncurl -I http://yourdomain.com\n\n# Check Nginx status\nsudo systemctl status nginx\n\n# View Nginx error logs\nsudo tail -f /var/log/nginx/error.log\n\n\nMixed Content Warnings\nIf you see mixed content warnings in the browser:\n\nEnsure all resources (CSS, JS, images) are loaded via HTTPS\nUpdate any hardcoded HTTP URLs in your application\nUse protocol-relative URLs (//example.com/resource) when possible",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/06-sixth-step.html#summary-and-key-takeaways",
+    "href": "modules/02-steps/06-sixth-step.html#summary-and-key-takeaways",
+    "title": "Step 6: Set Up Custom Domain and SSL Certificate",
+    "section": "Summary and Key Takeaways",
+    "text": "Summary and Key Takeaways\nCongratulations! You’ve successfully configured a custom domain and SSL certificate for your Spring Boot application on AWS Lightsail. Your application now has:\n✅ Key Accomplishments:\n\nCustom domain configuration with proper DNS management\nSSL certificate with automatic HTTPS redirect\nAutomatic certificate renewal to prevent expiration\nProduction-ready HTTPS security headers\nProfessional appearance with secure connections\n\n🔒 Security Benefits:\n\nEncrypted data transmission between users and your server\nBrowser trust indicators (lock icon, “Secure” label)\nProtection against man-in-the-middle attacks\nImproved SEO rankings due to HTTPS preference\n\n📈 Next Steps:\n\nMonitor your SSL certificate status regularly\nConsider implementing additional security headers\nSet up monitoring and alerting for your domain and certificates\nPlan for scaling if your application grows beyond Lightsail’s capacity\n\nYour Spring Boot application is now fully deployed with enterprise-grade security and accessibility. Users can confidently access your application through a professional domain with complete data protection.",
+    "crumbs": [
+      "Steps",
+      "Sixth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html",
+    "href": "modules/02-steps/03-third-step.html",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#lecture-slides",
+    "href": "modules/02-steps/03-third-step.html#lecture-slides",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#introduction",
+    "href": "modules/02-steps/03-third-step.html#introduction",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Introduction",
+    "text": "Introduction\nIn this step, you’ll install and configure MySQL on your Lightsail instance to serve as the production database for your Spring Boot application. We’ll set up proper security, create the application database, and configure it for optimal performance.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#understanding-database-options-on-lightsail",
+    "href": "modules/02-steps/03-third-step.html#understanding-database-options-on-lightsail",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Understanding Database Options on Lightsail",
+    "text": "Understanding Database Options on Lightsail\nWhile AWS offers managed database services like RDS, installing MySQL directly on your Lightsail instance is often more cost-effective for smaller applications. This approach gives you:\n\nFull control over database configuration\nNo additional monthly charges beyond your instance cost\nSimplified networking (database and application on same server)\nEasier backup and maintenance for small-scale deployments\n\n\n\n\n\n\n\nNoteWhen to Consider RDS\n\n\n\nIf your application grows to handle thousands of concurrent users or requires high availability, consider migrating to Amazon RDS for better scalability and automated backups.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#installing-mysql-on-ubuntu",
+    "href": "modules/02-steps/03-third-step.html#installing-mysql-on-ubuntu",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Installing MySQL on Ubuntu",
+    "text": "Installing MySQL on Ubuntu\n\nStep 1: Connect to Your Lightsail Instance\nFirst, connect to your Lightsail instance using the browser-based SSH client:\n\nIn the Lightsail console, click on your instance name\nClick the “Connect using SSH” button\nWait for the terminal to load\n\n\n\nStep 2: Update System Packages\nAlways start by updating your system packages to ensure security and compatibility:\nsudo apt update && sudo apt upgrade -y\n\n\nStep 3: Install MySQL Server\nInstall MySQL server and client packages:\nsudo apt install mysql-server mysql-client -y\n\n\n\n\n\n\nTipInstallation Progress\n\n\n\nThe MySQL installation process may take 2-3 minutes. The system will automatically start the MySQL service after installation.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#securing-mysql-installation",
+    "href": "modules/02-steps/03-third-step.html#securing-mysql-installation",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Securing MySQL Installation",
+    "text": "Securing MySQL Installation\n\nStep 1: Run MySQL Security Script\nMySQL comes with a security script that removes insecure default settings:\nsudo mysql_secure_installation\n\n\nStep 2: Configure Security Settings\nWhen prompted, configure the following settings:\n\nVALIDATE PASSWORD COMPONENT: Choose Y for better security\nPassword validation policy: Select 2 (STRONG)\nSet root password: Create a strong password and save it securely\nRemove anonymous users: Choose Y\nDisallow root login remotely: Choose Y\nRemove test database: Choose Y\nReload privilege tables: Choose Y\n\n\n\n\n\n\n\nWarningSave Your Root Password\n\n\n\nWrite down your MySQL root password in a secure location. You’ll need it for database administration tasks.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#creating-the-application-database",
+    "href": "modules/02-steps/03-third-step.html#creating-the-application-database",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Creating the Application Database",
+    "text": "Creating the Application Database\n\nStep 1: Access MySQL as Root\nLog into MySQL using the root account:\nsudo mysql -u root -p\nEnter the root password you created during the security setup.\n\n\nStep 2: Create Application Database\nCreate a dedicated database for your Spring Boot application:\nCREATE DATABASE myapp_prod CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\n\n\nStep 3: Create Application User\nCreate a dedicated MySQL user for your application with limited privileges:\nCREATE USER 'springapp'@'localhost' IDENTIFIED BY 'your-secure-app-password';\nGRANT ALL PRIVILEGES ON myapp_prod.* TO 'springapp'@'localhost';\nFLUSH PRIVILEGES;\n\n\n\n\n\n\nTipPassword Security\n\n\n\nUse a strong, unique password for your application user. Consider using a password manager to generate and store it securely.\n\n\n\n\nStep 4: Verify Database Setup\nTest your new database and user:\n-- Switch to the new database\nUSE myapp_prod;\n\n-- Show current user and database\nSELECT USER(), DATABASE();\n\n-- Exit MySQL\nEXIT;",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#configuring-mysql-for-production",
+    "href": "modules/02-steps/03-third-step.html#configuring-mysql-for-production",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Configuring MySQL for Production",
+    "text": "Configuring MySQL for Production\n\nStep 1: Edit MySQL Configuration\nOpen the MySQL configuration file:\nsudo nano /etc/mysql/mysql.conf.d/mysqld.cnf\n\n\nStep 2: Optimize MySQL Settings\nAdd or modify these settings in the [mysqld] section for better performance:\n# Performance tuning for small to medium applications\ninnodb_buffer_pool_size = 256M\ninnodb_log_file_size = 64M\ninnodb_flush_log_at_trx_commit = 2\n\n# Character set configuration\ncharacter-set-server = utf8mb4\ncollation-server = utf8mb4_unicode_ci\n\n# Connection limits\nmax_connections = 100\nmax_connect_errors = 10000\n\n# Query cache (for MySQL 5.7 and earlier)\nquery_cache_type = 1\nquery_cache_size = 64M\n\n\nStep 3: Restart MySQL Service\nApply the configuration changes:\nsudo systemctl restart mysql\nsudo systemctl status mysql\n\n\n\n\n\n\nNoteService Status\n\n\n\nThe systemctl status mysql command should show the service as “active (running)” in green text.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#testing-database-connection",
+    "href": "modules/02-steps/03-third-step.html#testing-database-connection",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Testing Database Connection",
+    "text": "Testing Database Connection\n\nStep 1: Test Local Connection\nVerify you can connect with your application user:\nmysql -u springapp -p myapp_prod\n\n\nStep 2: Create a Test Table\nOnce connected, test database operations:\n-- Create a simple test table\nCREATE TABLE test_connection (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    message VARCHAR(255),\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n-- Insert test data\nINSERT INTO test_connection (message) VALUES ('Database connection successful!');\n\n-- Verify the data\nSELECT * FROM test_connection;\n\n-- Clean up\nDROP TABLE test_connection;\nEXIT;",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#configuring-firewall-optional",
+    "href": "modules/02-steps/03-third-step.html#configuring-firewall-optional",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Configuring Firewall (Optional)",
+    "text": "Configuring Firewall (Optional)\nIf you plan to connect to MySQL from external applications for testing, you can configure the firewall:\n# Allow MySQL connections (only if needed for external access)\nsudo ufw allow 3306/tcp\n\n# Check firewall status\nsudo ufw status\n\n\n\n\n\n\nWarningSecurity Consideration\n\n\n\nOnly open MySQL port 3306 if you absolutely need external database access. For production applications, keep the database local to the instance for better security.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#setting-up-automated-backups",
+    "href": "modules/02-steps/03-third-step.html#setting-up-automated-backups",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Setting Up Automated Backups",
+    "text": "Setting Up Automated Backups\n\nStep 1: Create Backup Directory\nsudo mkdir -p /backup/mysql\nsudo chown mysql:mysql /backup/mysql\n\n\nStep 2: Create Backup Script\nCreate a simple backup script:\nsudo nano /usr/local/bin/mysql-backup.sh\nAdd the following content:\n#!/bin/bash\nBACKUP_DIR=\"/backup/mysql\"\nDATE=$(date +%Y%m%d_%H%M%S)\nDB_NAME=\"myapp_prod\"\nDB_USER=\"springapp\"\nDB_PASS=\"your-secure-app-password\"\n\n# Create backup\nmysqldump -u $DB_USER -p$DB_PASS $DB_NAME &gt; $BACKUP_DIR/${DB_NAME}_${DATE}.sql\n\n# Keep only last 7 days of backups\nfind $BACKUP_DIR -name \"${DB_NAME}_*.sql\" -mtime +7 -delete\n\necho \"Backup completed: ${DB_NAME}_${DATE}.sql\"\n\n\nStep 3: Make Script Executable and Test\nsudo chmod +x /usr/local/bin/mysql-backup.sh\nsudo /usr/local/bin/mysql-backup.sh",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#updating-spring-boot-configuration",
+    "href": "modules/02-steps/03-third-step.html#updating-spring-boot-configuration",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Updating Spring Boot Configuration",
+    "text": "Updating Spring Boot Configuration\nNow that your database is ready, update your production profile configuration to match your MySQL setup:\n# src/main/resources/application-prod.properties\n\n# Production MySQL database configuration\nspring.datasource.url=jdbc:mysql://localhost:3306/myapp_prod\nspring.datasource.username=springapp\nspring.datasource.password=your-secure-app-password\nspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver\n\n# Production-specific JPA settings\nspring.jpa.hibernate.ddl-auto=validate\nspring.jpa.show-sql=false\n\n# Production logging\nlogging.level.root=WARN\nlogging.level.org.springframework.web=INFO\nlogging.level.org.hibernate=ERROR\n\n\n\n\n\n\nTipEnvironment Variables\n\n\n\nIn the next step, we’ll show you how to externalize these database credentials using environment variables for better security.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/03-third-step.html#summary",
+    "href": "modules/02-steps/03-third-step.html#summary",
+    "title": "Step 3: Set Up MySQL Database on Lightsail",
+    "section": "Summary",
+    "text": "Summary\nIn this step, you’ve successfully:\n\nInstalled and secured MySQL on your Lightsail instance\nCreated a dedicated database and user for your Spring Boot application\nConfigured MySQL for optimal performance\nSet up basic backup functionality\nPrepared your database configuration for production deployment\n\nYour Lightsail instance now has a properly configured MySQL database ready to support your Spring Boot application. The database is secured with appropriate user permissions and optimized for production workloads.\n\nKey Takeaways\n\nSecurity First: Always run mysql_secure_installation and use strong passwords\nDedicated Users: Create application-specific database users with minimal required privileges\nPerformance Tuning: Configure MySQL settings appropriate for your instance size\nRegular Backups: Implement automated backup strategies from the beginning\nConnection Testing: Always verify database connectivity before deploying your application\n\nIn the next step, you’ll learn how to deploy your Spring Boot application to the Lightsail server and connect it to this MySQL database.",
+    "crumbs": [
+      "Steps",
+      "Third Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html",
+    "href": "modules/02-steps/01-first-step-slides.html",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "",
+    "text": "— title: “Step 1: Configure Development and Production Profiles in Spring Boot” author: “AWS Lightsail Deployment Course” date: last-modified format: revealjs: default pdf: toc: true number-sections: true colorlinks: true draft: true —"
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#configure-development-and-production-profiles-in-spring-boot",
+    "href": "modules/02-steps/01-first-step-slides.html#configure-development-and-production-profiles-in-spring-boot",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Configure Development and Production Profiles in Spring Boot",
+    "text": "Configure Development and Production Profiles in Spring Boot\n  Preparing your Spring Boot application for seamless deployment to AWS Lightsail\n\nWelcome to step 1 of deploying Spring Boot apps to AWS Lightsail. Today we’ll configure separate application profiles for development and production environments."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#why-spring-boot-profiles-matter",
+    "href": "modules/02-steps/01-first-step-slides.html#why-spring-boot-profiles-matter",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Why Spring Boot Profiles Matter",
+    "text": "Why Spring Boot Profiles Matter\n\n\nDevelopment Environment\n\nLocal database connections\nDebug logging enabled\nDevelopment-friendly settings\n\n\nProduction Environment\n\nCloud database connections\nOptimized performance settings\nSecurity-focused configuration\n\n\n\n\nProfiles allow you to segregate application configuration and make it available only in certain environments. This prevents hardcoding production credentials and enables local testing with development databases."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#base-configuration-setup",
+    "href": "modules/02-steps/01-first-step-slides.html#base-configuration-setup",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Base Configuration Setup",
+    "text": "Base Configuration Setup\nCreate application.properties with common settings:\n# Application name and basic settings\nspring.application.name=my-spring-app\nserver.servlet.context-path=/\n\n# Default active profile\nspring.profiles.active=dev\n\n# JPA/Hibernate common settings\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.show-sql=false\n\nThe base configuration contains settings that apply to all environments. Notice we set the default profile to ‘dev’ for local development convenience."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#development-profile-configuration",
+    "href": "modules/02-steps/01-first-step-slides.html#development-profile-configuration",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Development Profile Configuration",
+    "text": "Development Profile Configuration\nCreate application-dev.properties:\n# Local MySQL database configuration\nspring.datasource.url=jdbc:mysql://localhost:3306/myapp_dev\nspring.datasource.username=dev_user\nspring.datasource.password=dev_password\n\n# Development-specific settings\nspring.jpa.show-sql=true\nlogging.level.org.springframework.web=DEBUG\nserver.port=8080\n\nThe development profile uses local database connections and enables verbose logging to help with debugging during development."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#production-profile-configuration",
+    "href": "modules/02-steps/01-first-step-slides.html#production-profile-configuration",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Production Profile Configuration",
+    "text": "Production Profile Configuration\nCreate application-prod.properties:\n# Production database with environment variables\nspring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/myapp_prod}\nspring.datasource.username=${DB_USERNAME:prod_user}\nspring.datasource.password=${DB_PASSWORD:secure_password}\n\n# Production optimizations\nspring.jpa.show-sql=false\nspring.jpa.hibernate.ddl-auto=validate\nserver.compression.enabled=true\n\nProduction profile uses environment variables for database configuration, enabling secure credential management without hardcoding sensitive information."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#environment-variables-in-production",
+    "href": "modules/02-steps/01-first-step-slides.html#environment-variables-in-production",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Environment Variables in Production",
+    "text": "Environment Variables in Production\n\n\nSyntax: ${VARIABLE_NAME:default_value}\nBenefits:\n\nSecure credential management\nEnvironment-specific overrides\nNo hardcoded production secrets\nEasy configuration changes\n\n\nspring.datasource.url=\n  ${DB_URL:default}\n\nspring.datasource.username=\n  ${DB_USERNAME:user}\n\nspring.datasource.password=\n  ${DB_PASSWORD:pass}\n\n\n\nThe ${} syntax allows overriding configuration values with environment variables while providing fallback defaults. This is crucial for cloud deployments."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#build-configuration-updates",
+    "href": "modules/02-steps/01-first-step-slides.html#build-configuration-updates",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Build Configuration Updates",
+    "text": "Build Configuration Updates\n\nMaven Dependencies\n&lt;dependency&gt;\n    &lt;groupId&gt;mysql&lt;/groupId&gt;\n    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;\n    &lt;scope&gt;runtime&lt;/scope&gt;\n&lt;/dependency&gt;\n\n&lt;dependency&gt;\n    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\n    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;\n&lt;/dependency&gt;\n\nEnsure your build configuration includes the necessary dependencies for MySQL connectivity and JPA data access."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#testing-your-profiles",
+    "href": "modules/02-steps/01-first-step-slides.html#testing-your-profiles",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Testing Your Profiles",
+    "text": "Testing Your Profiles\n\nDevelopment Profile\n# Run with development profile (default)\nmvn spring-boot:run\n\n# Or explicitly specify\nmvn spring-boot:run -Dspring-boot.run.profiles=dev\n\n\nProduction Profile Testing\n# Set environment variables\nexport DB_URL=\"jdbc:mysql://localhost:3306/myapp_test\"\nexport DB_USERNAME=\"test_user\"\n\n# Run with production profile\nmvn spring-boot:run -Dspring-boot.run.profiles=prod\n\nTesting both profiles locally ensures your configuration works correctly before deployment. The production profile test helps verify environment variable substitution works."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#building-for-production",
+    "href": "modules/02-steps/01-first-step-slides.html#building-for-production",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Building for Production",
+    "text": "Building for Production\nCreate deployment-ready JAR:\n# Clean and build the project\nmvn clean package\n\n# Verify the JAR was created\nls -la target/*.jar\nOutput:\n-rw-r--r-- 1 user user 45M Dec  1 10:30 my-spring-app-1.0.0.jar\n\nThe executable JAR contains your application and all dependencies, making it perfect for cloud deployment. This single file can be transferred to your Lightsail instance."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#configuration-verification-checklist",
+    "href": "modules/02-steps/01-first-step-slides.html#configuration-verification-checklist",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Configuration Verification Checklist",
+    "text": "Configuration Verification Checklist\n\n\n✓ Created application.properties, application-dev.properties, and application-prod.properties\n✓ Application starts successfully with development profile\n✓ Executable JAR builds without errors\n✓ Database dependencies configured in build file\n✓ Environment variable syntax working in production profile\n\n\n\nBefore proceeding to the next step, ensure all these checkpoints are completed. This foundation is crucial for successful deployment."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#key-benefits-achieved",
+    "href": "modules/02-steps/01-first-step-slides.html#key-benefits-achieved",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Key Benefits Achieved",
+    "text": "Key Benefits Achieved\n\n\nDevelopment Benefits\n\nLocal development database\nDebug logging enabled\nFast development cycle\nEasy configuration changes\n\n\nProduction Benefits\n\nSecure credential management\nOptimized performance settings\nEnvironment-specific configurations\nCloud-ready deployment package\n\n\n\n\nThis profile configuration provides the foundation for a professional deployment workflow, separating concerns between development and production environments."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#whats-next",
+    "href": "modules/02-steps/01-first-step-slides.html#whats-next",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nComing Up in Step 2:\n\nCreate AWS Lightsail instance\nConfigure Linux environment\nSet up MySQL database\nPrepare for application deployment\n\nYour Spring Boot application is now production-ready with proper profile configuration!\n\nWith profiles configured, your application can seamlessly transition from local development to AWS Lightsail. Next, we’ll create the cloud infrastructure to host your application."
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step-slides.html#summary",
+    "href": "modules/02-steps/01-first-step-slides.html#summary",
+    "title": "Deploy Spring Boot Apps to AWS Lightsail",
+    "section": "Summary",
+    "text": "Summary\n\nSpring Boot profiles enable environment-specific configurations\nEnvironment variables provide secure credential management\nExecutable JARs simplify deployment processes\nProper configuration is essential for cloud deployments\n\nYour application is now ready for AWS Lightsail deployment!\n\nYou’ve successfully configured a Spring Boot application with separate development and production profiles, created a deployment-ready JAR, and established the foundation for secure cloud deployment."
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html",
+    "href": "modules/02-steps/02-second-step.html",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#lecture-slides",
+    "href": "modules/02-steps/02-second-step.html#lecture-slides",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#introduction",
+    "href": "modules/02-steps/02-second-step.html#introduction",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Introduction",
+    "text": "Introduction\nIn this step, you’ll create a new AWS Lightsail instance that will serve as your production server for deploying your Spring Boot application. We’ll configure it with the appropriate specifications and security settings needed for a Java web application.",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#understanding-aws-lightsail",
+    "href": "modules/02-steps/02-second-step.html#understanding-aws-lightsail",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Understanding AWS Lightsail",
+    "text": "Understanding AWS Lightsail\nAWS Lightsail is Amazon’s simplified cloud platform that provides easy-to-use virtual private servers (VPS) with predictable pricing. It’s perfect for deploying Spring Boot applications because it offers:\n\nPre-configured Linux instances\nIntegrated networking and security\nSimple management interface\nCost-effective pricing for small to medium applications\n\n\n\n\n\n\n\nTipWhy Choose Lightsail?\n\n\n\nLightsail is ideal for Spring Boot deployments because it eliminates the complexity of EC2 while providing sufficient power and flexibility for most web applications.",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#creating-your-lightsail-instance",
+    "href": "modules/02-steps/02-second-step.html#creating-your-lightsail-instance",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Creating Your Lightsail Instance",
+    "text": "Creating Your Lightsail Instance\n\nStep 1: Access the Lightsail Console\n\nLog into your AWS account and navigate to the Lightsail console\nClick “Create instance” to start the setup process\n\n\n\nStep 2: Choose Instance Location and Availability Zone\n\nSelect your preferred AWS Region (choose one closest to your users for better performance)\nKeep the default Availability Zone unless you have specific requirements\n\n\n\n\n\n\n\nNoteRegion Selection\n\n\n\nFor this tutorial, we’ll use us-east-1 (Virginia), but you can choose any region. Just remember your selection for future configurations.\n\n\n\n\nStep 3: Select Platform and Blueprint\n\nPlatform: Select Linux/Unix\nBlueprint: Choose OS Only → Ubuntu 20.04 LTS\n\nWe’re using Ubuntu because it has excellent Java support and a large community for troubleshooting.\n\n\nStep 4: Choose Instance Plan\nFor a Spring Boot application with moderate traffic, select:\n\nInstance plan: $10 USD/month\n\n1 GB RAM\n1 vCPU\n\n40 GB SSD\n2 TB transfer\n\n\n\n\n\n\n\n\nTipInstance Sizing\n\n\n\nThis configuration handles most Spring Boot applications well. You can always upgrade later if you need more resources.\n\n\n\n\nStep 5: Configure Instance Details\n\nInstance name: Enter a descriptive name like spring-boot-prod-server\nKey pair:\n\nIf you have an existing key pair, select it\nIf not, click “Create new” and download the private key file\nImportant: Save this key file securely - you’ll need it for SSH access\n\nClick “Create instance”",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#initial-server-configuration",
+    "href": "modules/02-steps/02-second-step.html#initial-server-configuration",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Initial Server Configuration",
+    "text": "Initial Server Configuration\nOnce your instance is running (this takes 2-3 minutes), you’ll need to configure it for Java development.\n\nStep 1: Connect to Your Instance\nYou can connect via the Lightsail browser-based SSH or use your own SSH client:\nOption A: Browser SSH (Easiest) 1. In the Lightsail console, click the terminal icon next to your instance 2. This opens a browser-based SSH session\nOption B: Local SSH Client\n# Replace 'your-key.pem' with your actual key file name\n# Replace 'YOUR_INSTANCE_IP' with your Lightsail instance's public IP\nchmod 400 your-key.pem\nssh -i your-key.pem ubuntu@YOUR_INSTANCE_IP\n\n\nStep 2: Update the System\nFirst, update your Ubuntu system:\nsudo apt update && sudo apt upgrade -y\n\n\nStep 3: Install Java 17\nInstall OpenJDK 17, which is the recommended version for modern Spring Boot applications:\n# Install OpenJDK 17\nsudo apt install openjdk-17-jdk -y\n\n# Verify installation\njava -version\njavac -version\nYou should see output similar to:\nopenjdk version \"17.0.x\" 2023-xx-xx\nOpenJDK Runtime Environment (build 17.0.x+x-Ubuntu-x)\nOpenJDK 64-Bit Server VM (build 17.0.x+x-Ubuntu-x, mixed mode, sharing)\n\n\nStep 4: Set JAVA_HOME Environment Variable\n# Find Java installation path\nsudo update-alternatives --display java\n\n# Set JAVA_HOME (replace path if different)\necho 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' &gt;&gt; ~/.bashrc\necho 'export PATH=$JAVA_HOME/bin:$PATH' &gt;&gt; ~/.bashrc\n\n# Reload environment\nsource ~/.bashrc\n\n# Verify JAVA_HOME\necho $JAVA_HOME\n\n\nStep 5: Install Essential Development Tools\nInstall additional tools you’ll need:\n# Install git, curl, wget, and unzip\nsudo apt install git curl wget unzip -y\n\n# Install Maven (for building Spring Boot apps)\nsudo apt install maven -y\n\n# Verify Maven installation\nmvn -version",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#configuring-security-groups",
+    "href": "modules/02-steps/02-second-step.html#configuring-security-groups",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Configuring Security Groups",
+    "text": "Configuring Security Groups\n\nUnderstanding Lightsail Firewall\nLightsail includes a built-in firewall that controls network access to your instance. We need to configure it to allow web traffic.\n\n\nStep 1: Configure Firewall Rules\n\nIn the Lightsail console, click on your instance name\nGo to the Networking tab\nUnder Firewall, you’ll see the default rules\nAdd the following rules by clicking “Add rule”:\n\nRequired Rules: - HTTP: Application = HTTP, Protocol = TCP, Port = 80 - HTTPS: Application = HTTPS, Protocol = TCP, Port = 443\n- Custom: Application = Custom, Protocol = TCP, Port = 8080 (for testing Spring Boot directly)\n\n\n\n\n\n\nWarningSecurity Note\n\n\n\nOnly open port 8080 temporarily for testing. In production, you’ll use Nginx as a reverse proxy and close this port.\n\n\n\n\nStep 2: Verify Connectivity\nTest that your instance is accessible:\n# From your instance, test outbound connectivity\nping google.com\n\n# Test that the instance can reach package repositories\ncurl -I https://packages.ubuntu.com",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#creating-a-deployment-user",
+    "href": "modules/02-steps/02-second-step.html#creating-a-deployment-user",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Creating a Deployment User",
+    "text": "Creating a Deployment User\nFor security best practices, create a dedicated user for your Spring Boot application:\n\nStep 1: Create Application User\n# Create a new user for the application\nsudo adduser springboot\n\n# Add user to sudo group (if needed for deployment tasks)\nsudo usermod -aG sudo springboot\n\n# Create application directory\nsudo mkdir -p /opt/springboot\nsudo chown springboot:springboot /opt/springboot\n\n\nStep 2: Set Up SSH Key for Deployment User (Optional)\nIf you want to deploy directly as the springboot user:\n# Switch to springboot user\nsudo su - springboot\n\n# Create SSH directory\nmkdir -p ~/.ssh\nchmod 700 ~/.ssh\n\n# You can add your public key here later for deployments\n# echo \"your-public-key\" &gt;&gt; ~/.ssh/authorized_keys\n# chmod 600 ~/.ssh/authorized_keys",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#checkpoint",
+    "href": "modules/02-steps/02-second-step.html#checkpoint",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "Checkpoint",
+    "text": "Checkpoint\nBefore moving on, verify that your Lightsail instance is properly configured:\n\nInstance is running and accessible via SSH\nJava 17 is installed and JAVA_HOME is set\nMaven is installed and working\nFirewall rules are configured for HTTP, HTTPS, and port 8080\nSystem is updated and essential tools are installed\nApplication user springboot is created\n\n\nTest Your Setup\nRun these commands to verify everything is working:\n# Verify Java\njava -version\n\n# Verify Maven\nmvn -version\n\n# Verify network connectivity\ncurl -I https://start.spring.io\n\n# Check available disk space\ndf -h\n\n# Check memory usage\nfree -h",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/02-second-step.html#what-just-happened",
+    "href": "modules/02-steps/02-second-step.html#what-just-happened",
+    "title": "Step 2: Create and Configure AWS Lightsail Instance",
+    "section": "What Just Happened?",
+    "text": "What Just Happened?\nYou’ve successfully created and configured an AWS Lightsail instance that’s ready to host your Spring Boot application. The server now has:\n\nA secure Linux environment with Ubuntu 20.04\nJava 17 runtime environment\nMaven build tool for Java projects\nProper firewall configuration for web traffic\nA dedicated user account for application deployment\nAll necessary development tools and dependencies\n\nIn the next step, you’ll set up a MySQL database on this same instance to store your application’s data. The groundwork you’ve laid here ensures that your Spring Boot application will have a stable, secure environment to run in production.\n\n\n\n\n\n\nTipInstance Management\n\n\n\nRemember to stop your Lightsail instance when not in use during development to save costs. You can easily start/stop instances from the Lightsail console.",
+    "crumbs": [
+      "Steps",
+      "Second Step"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html",
+    "title": "Troubleshooting Common Issues",
+    "section": "",
+    "text": "Deploying Spring Boot applications to AWS Lightsail can involve various moving parts, and issues are bound to arise during the deployment process. This troubleshooting guide covers the most common problems you’ll encounter and provides step-by-step solutions to resolve them quickly.\nUnderstanding how to diagnose and fix deployment issues is crucial for maintaining a reliable production environment. This lesson will equip you with the knowledge and tools to identify problems and implement effective solutions.",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#introduction",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#introduction",
+    "title": "Troubleshooting Common Issues",
+    "section": "",
+    "text": "Deploying Spring Boot applications to AWS Lightsail can involve various moving parts, and issues are bound to arise during the deployment process. This troubleshooting guide covers the most common problems you’ll encounter and provides step-by-step solutions to resolve them quickly.\nUnderstanding how to diagnose and fix deployment issues is crucial for maintaining a reliable production environment. This lesson will equip you with the knowledge and tools to identify problems and implement effective solutions.",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#application-wont-start",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#application-wont-start",
+    "title": "Troubleshooting Common Issues",
+    "section": "Application Won’t Start",
+    "text": "Application Won’t Start\n\nJava Version Mismatch\nOne of the most common issues is running your Spring Boot application with an incompatible Java version.\nSymptoms:\n\nApplication fails to start with UnsupportedClassVersionError\nJAR file won’t execute\nBuild works locally but fails on server\n\nSolution:\nFirst, check your local Java version and the version specified in your pom.xml:\n# Check Java version on your local machine\njava -version\n\n# Check Java version on Lightsail instance\nssh -i your-key.pem ubuntu@your-lightsail-ip\njava -version\nEnsure your pom.xml matches the server’s Java version:\n&lt;properties&gt;\n    &lt;java.version&gt;17&lt;/java.version&gt;\n    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;\n    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;\n&lt;/properties&gt;\nIf you need to update Java on your Lightsail instance:\n# Install Java 17\nsudo apt update\nsudo apt install openjdk-17-jdk\n\n# Set Java 17 as default\nsudo update-alternatives --config java\n\n\n\n\n\n\nTipPro Tip\n\n\n\nAlways use the same Java version across your development, build, and production environments to avoid compatibility issues.\n\n\n\n\nMissing Environment Variables\nSymptoms:\n\nApplication starts but database connections fail\nConfiguration properties are not loaded correctly\nApplication behavior differs from local environment\n\nSolution:\nCheck if your environment variables are properly set:\n# View current environment variables\nenv | grep -i spring\n\n# Check if your application.properties file exists\nls -la /opt/myapp/\nEnsure your environment variables are set in the systemd service file:\nsudo nano /etc/systemd/system/myapp.service\n[Unit]\nDescription=My Spring Boot Application\nAfter=syslog.target\n\n[Service]\nUser=ubuntu\nExecStart=/usr/bin/java -jar /opt/myapp/myapp.jar\nSuccessExitStatus=143\nEnvironment=SPRING_PROFILES_ACTIVE=production\nEnvironment=DB_HOST=localhost\nEnvironment=DB_PASSWORD=your_secure_password\nRestart=always\nRestartSec=10\n\n[Install]\nWantedBy=multi-user.target\nReload and restart the service:\nsudo systemctl daemon-reload\nsudo systemctl restart myapp",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#database-connection-issues",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#database-connection-issues",
+    "title": "Troubleshooting Common Issues",
+    "section": "Database Connection Issues",
+    "text": "Database Connection Issues\n\nConnection Refused Errors\nSymptoms:\n\njava.net.ConnectException: Connection refused\nApplication logs show database connection timeouts\nMySQL service appears to be running but connections fail\n\nSolution:\nFirst, verify MySQL is running and listening on the correct port:\n# Check MySQL service status\nsudo systemctl status mysql\n\n# Check if MySQL is listening on port 3306\nsudo netstat -tlnp | grep 3306\n\n# Test local database connection\nmysql -u root -p -h localhost\nIf MySQL isn’t running, start it:\nsudo systemctl start mysql\nsudo systemctl enable mysql\nCheck your database configuration in application-production.properties:\nspring.datasource.url=jdbc:mysql://localhost:3306/myapp_db?useSSL=false&serverTimezone=UTC\nspring.datasource.username=myapp_user\nspring.datasource.password=${DB_PASSWORD}\nspring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect\n\n\nAuthentication Failures\nSymptoms:\n\nAccess denied for user 'username'@'host'\nDatabase user exists but authentication fails\n\nSolution:\nVerify database user permissions:\n-- Log into MySQL as root\nmysql -u root -p\n\n-- Check user privileges\nSHOW GRANTS FOR 'myapp_user'@'localhost';\n\n-- If user doesn't exist or lacks privileges, recreate it\nDROP USER IF EXISTS 'myapp_user'@'localhost';\nCREATE USER 'myapp_user'@'localhost' IDENTIFIED BY 'secure_password';\nGRANT ALL PRIVILEGES ON myapp_db.* TO 'myapp_user'@'localhost';\nFLUSH PRIVILEGES;\n\n\n\n\n\n\nWarningSecurity Warning\n\n\n\nNever use the root MySQL user for your application. Always create a dedicated user with minimal required privileges.",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#nginx-configuration-problems",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#nginx-configuration-problems",
+    "title": "Troubleshooting Common Issues",
+    "section": "Nginx Configuration Problems",
+    "text": "Nginx Configuration Problems\n\n502 Bad Gateway Error\nSymptoms:\n\nNginx returns “502 Bad Gateway” error\nApplication is running but not accessible through Nginx\nDirect access to application port works\n\nSolution:\nCheck if your Spring Boot application is running on the expected port:\n# Check if application is listening on port 8080\nsudo netstat -tlnp | grep 8080\n\n# Check application logs\nsudo journalctl -u myapp -f\nVerify your Nginx configuration:\nsudo nano /etc/nginx/sites-available/myapp\nEnsure the proxy_pass directive points to the correct port:\nserver {\n    listen 80;\n    server_name your-domain.com;\n\n    location / {\n        proxy_pass http://localhost:8080;\n        proxy_set_header Host $host;\n        proxy_set_header X-Real-IP $remote_addr;\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n        proxy_set_header X-Forwarded-Proto $scheme;\n        proxy_connect_timeout       600;\n        proxy_send_timeout          600;\n        proxy_read_timeout          600;\n        send_timeout                600;\n    }\n}\nTest and reload Nginx configuration:\n# Test configuration syntax\nsudo nginx -t\n\n# Reload Nginx if test passes\nsudo systemctl reload nginx\n\n\nSSL Certificate Issues\nSymptoms:\n\n“Your connection is not secure” warnings\nCertificate expired or invalid errors\nMixed content warnings\n\nSolution:\nCheck certificate status:\n# Check certificate expiration\nsudo certbot certificates\n\n# Test SSL configuration\nopenssl s_client -connect your-domain.com:443\nRenew certificates if needed:\n# Test certificate renewal (dry run)\nsudo certbot renew --dry-run\n\n# Renew certificates\nsudo certbot renew\n\n# Restart Nginx\nsudo systemctl restart nginx",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#performance-and-memory-issues",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#performance-and-memory-issues",
+    "title": "Troubleshooting Common Issues",
+    "section": "Performance and Memory Issues",
+    "text": "Performance and Memory Issues\n\nOut of Memory Errors\nSymptoms:\n\njava.lang.OutOfMemoryError\nApplication becomes unresponsive\nHigh memory usage in system monitoring\n\nSolution:\nCheck current memory usage:\n# Check system memory\nfree -h\n\n# Check Java process memory usage\nps aux | grep java\nAdjust JVM memory settings in your systemd service:\nsudo nano /etc/systemd/system/myapp.service\n[Service]\nExecStart=/usr/bin/java -Xms512m -Xmx1024m -jar /opt/myapp/myapp.jar\n\n\n\n\n\n\nNoteMemory Guidelines\n\n\n\nFor Lightsail instances with 1GB RAM, allocate a maximum of 768MB to your Java application to leave memory for the operating system and other services.\n\n\n\n\nSlow Application Performance\nSymptoms:\n\nLong response times\nDatabase queries timing out\nHigh CPU usage\n\nSolution:\nEnable application performance monitoring:\n# Add to application-production.properties\nmanagement.endpoints.web.exposure.include=health,metrics,info\nmanagement.endpoint.health.show-details=always\nCheck database performance:\n-- Enable MySQL slow query log\nSET GLOBAL slow_query_log = 'ON';\nSET GLOBAL long_query_time = 2;\n\n-- Check for slow queries\nSHOW PROCESSLIST;\nOptimize database connections:\n# Database connection pool settings\nspring.datasource.hikari.maximum-pool-size=5\nspring.datasource.hikari.minimum-idle=2\nspring.datasource.hikari.connection-timeout=20000\nspring.datasource.hikari.idle-timeout=300000\nspring.datasource.hikari.max-lifetime=1200000",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#debugging-tools-and-commands",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#debugging-tools-and-commands",
+    "title": "Troubleshooting Common Issues",
+    "section": "Debugging Tools and Commands",
+    "text": "Debugging Tools and Commands\n\nEssential Log Files\nMonitor these key log locations for troubleshooting:\n# Application logs (systemd)\nsudo journalctl -u myapp -f\n\n# Nginx access logs\nsudo tail -f /var/log/nginx/access.log\n\n# Nginx error logs\nsudo tail -f /var/log/nginx/error.log\n\n# MySQL error logs\nsudo tail -f /var/log/mysql/error.log\n\n# System logs\nsudo tail -f /var/log/syslog\n\n\nUseful Diagnostic Commands\n# Check service status\nsudo systemctl status myapp\nsudo systemctl status nginx\nsudo systemctl status mysql\n\n# Check port usage\nsudo netstat -tlnp | grep -E ':(80|443|3306|8080)'\n\n# Check disk space\ndf -h\n\n# Check system resources\ntop\nhtop\n\n# Test network connectivity\ncurl -I http://localhost:8080/actuator/health\n\n\n\n\n\n\nTipDebugging Strategy\n\n\n\nAlways start with the application logs, then work your way through the stack (database, web server, network) to isolate the issue.",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/03-troubleshooting/01-troubleshooting.html#summary",
+    "href": "modules/03-troubleshooting/01-troubleshooting.html#summary",
+    "title": "Troubleshooting Common Issues",
+    "section": "Summary",
+    "text": "Summary\nTroubleshooting Spring Boot applications on AWS Lightsail requires a systematic approach to identify and resolve issues. The most common problems fall into several categories:\nKey Troubleshooting Areas:\n\nJava Runtime Issues: Version mismatches and missing dependencies\nDatabase Connectivity: Connection configuration and authentication problems\n\nWeb Server Configuration: Nginx proxy settings and SSL certificates\nResource Constraints: Memory allocation and performance optimization\n\nEssential Troubleshooting Tools:\n\nSystem logs (journalctl, log files)\nNetwork diagnostics (netstat, curl)\nService management (systemctl)\nResource monitoring (top, free, df)\n\nBest Practices:\n\nMonitor application logs regularly\nTest configurations before applying changes\nKeep backups of working configurations\nDocument solutions for future reference\nUse consistent environments across development and production\n\nBy mastering these troubleshooting techniques, you’ll be able to quickly diagnose and resolve most deployment issues, ensuring your Spring Boot application runs reliably on AWS Lightsail.",
+    "crumbs": [
+      "Troubleshooting",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#what-well-cover-today",
+    "href": "modules/01-prerequisites/slides.html#what-well-cover-today",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "What We’ll Cover Today",
+    "text": "What We’ll Cover Today\n\n\nAccounts & Services\n\nAWS Account setup\nDomain registration options\n\nDevelopment Environment\n\nJava JDK requirements\nBuild tools (Maven/Gradle)\nIDE recommendations\n\n\nCommand Line Tools\n\nSSH client setup\nGit version control\nAWS CLI (optional)\n\nKnowledge Prerequisites\n\nSpring Boot fundamentals\nBasic Linux commands\nNetwork concepts\n\n\n\nThis lesson establishes the foundation for our deployment journey. We’ll ensure everyone has the necessary tools and knowledge before diving into the actual deployment process.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#aws-account-setup",
+    "href": "modules/01-prerequisites/slides.html#aws-account-setup",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "AWS Account Setup",
+    "text": "AWS Account Setup\n\n\nSteps to get started:\n\nVisit https://aws.amazon.com\nClick “Create an AWS Account”\nComplete registration process\nAdd payment information (required)\n\n\n\n\n\nAWS Logo\n\n\nFree Tier Benefits:\n\n750 hours/month for first 12 months\nPerfect for learning and testing\n\n\n\nEven though we mention payment information is required, emphasize that the free tier provides substantial resources for learning. Students won’t incur charges if they stay within free tier limits.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#domain-registration-optional",
+    "href": "modules/01-prerequisites/slides.html#domain-registration-optional",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Domain Registration (Optional)",
+    "text": "Domain Registration (Optional)\nRecommended Domain Registrars:\n\nAWS Route 53 (integrated with AWS services)\nNamecheap (popular and affordable)\nGoDaddy (widely recognized)\nCloudflare (includes CDN benefits)\n\nWhy register a domain?\n\nProfessional appearance\nEasier to remember than IP addresses\nSSL certificate setup is simpler\n\n\nWhile optional, having a custom domain significantly improves the professional appearance of deployed applications and makes SSL certificate management easier.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#java-development-kit-jdk",
+    "href": "modules/01-prerequisites/slides.html#java-development-kit-jdk",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Java Development Kit (JDK)",
+    "text": "Java Development Kit (JDK)\nRequirements: JDK 17 or later\n# Check your current Java version\njava -version\njavac -version\nInstallation Options:\n\nOracle JDK: Commercial support available\nOpenJDK: Open source, free to use\nPackage Managers: Easy installation and updates\n\n\nJDK 17 is the current Long Term Support (LTS) version and is recommended for production deployments. It provides stability and long-term support from the Java community.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#build-tools-maven-vs-gradle",
+    "href": "modules/01-prerequisites/slides.html#build-tools-maven-vs-gradle",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Build Tools: Maven vs Gradle",
+    "text": "Build Tools: Maven vs Gradle\n\n\nMaven\n# Check installation\nmvn -version\n\nXML-based configuration\nExtensive plugin ecosystem\nSpring Boot’s default choice\n\n\nGradle\n# Check installation\ngradle -version\n\nGroovy/Kotlin DSL\nFaster build performance\nFlexible configuration\n\n\nChoose one based on your team’s preference\n\nBoth Maven and Gradle are excellent choices. Maven is more traditional and widely used in enterprise environments, while Gradle offers more flexibility and better performance for complex builds.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#ide-recommendations",
+    "href": "modules/01-prerequisites/slides.html#ide-recommendations",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "IDE Recommendations",
+    "text": "IDE Recommendations\nTop Spring Boot IDEs:\n\nIntelliJ IDEA - Excellent Spring Boot integration\nVisual Studio Code - Lightweight with Java extensions\n\nEclipse + Spring Tools Suite - Free and powerful\nSpring Tool Suite (STS) - Purpose-built for Spring\n\nKey Features to Look For:\n\nSpring Boot run configurations\nApplication property auto-completion\nBuilt-in Maven/Gradle support\n\n\nThe choice of IDE is largely personal preference, but having good Spring Boot tooling support will significantly improve your development experience and productivity.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#ssh-client-setup",
+    "href": "modules/01-prerequisites/slides.html#ssh-client-setup",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "SSH Client Setup",
+    "text": "SSH Client Setup\n\n\nWindows:\n\nBuilt-in OpenSSH (Windows 10+)\nPuTTY (traditional option)\nWindows Subsystem for Linux\n\nmacOS/Linux:\n\nBuilt-in OpenSSH client\n\n\nTest SSH availability:\nssh -V\nYou’ll use SSH to:\n\nConnect to Lightsail instances\nDeploy applications\nMonitor server performance\n\n\n\nSSH is crucial for server management. Modern Windows includes OpenSSH by default, but older versions might need PuTTY or WSL installation.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#git-version-control",
+    "href": "modules/01-prerequisites/slides.html#git-version-control",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Git Version Control",
+    "text": "Git Version Control\nEssential for project management:\n# Check Git installation\ngit --version\n\n# Basic Git workflow you'll use\ngit add .\ngit commit -m \"Deploy ready\"\ngit push origin main\nInstallation:\n\nWindows: Download from git-scm.com\nmacOS: Homebrew or Xcode Command Line Tools\nLinux: Package manager (apt install git)\n\n\nGit isn’t just for code storage—we’ll use it to deploy code to our servers and manage different versions of our applications across environments.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#aws-cli-recommended",
+    "href": "modules/01-prerequisites/slides.html#aws-cli-recommended",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "AWS CLI (Recommended)",
+    "text": "AWS CLI (Recommended)\nHelpful for advanced configurations:\n# Check installation\naws --version\n\n# Configure credentials\naws configure\nBenefits:\n\nAutomate AWS resource management\nScript deployment processes\n\nAccess services not available in web console\n\n\nWhile not strictly required for basic deployments, AWS CLI becomes invaluable for automating deployment processes and managing resources programmatically.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#core-spring-boot-concepts",
+    "href": "modules/01-prerequisites/slides.html#core-spring-boot-concepts",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Core Spring Boot Concepts",
+    "text": "Core Spring Boot Concepts\nEssential understanding:\n\nSpring Boot Starters: Dependency management made easy\nApplication Properties: Environment-specific configurations\nProfiles: Different settings for dev/prod environments\n\nAuto-configuration: Spring Boot’s “magic” explained\nEmbedded Servers: Tomcat, Jetty, Undertow options",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#core-spring-boot-concepts-1",
+    "href": "modules/01-prerequisites/slides.html#core-spring-boot-concepts-1",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Core Spring Boot Concepts",
+    "text": "Core Spring Boot Concepts\nConfiguration Example:\n# application-prod.yml\nserver:\n  port: 8080\nspring:\n  profiles:\n    active: prod\n\nThese concepts form the foundation of effective Spring Boot deployment. Understanding profiles is particularly crucial for managing different environments.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#database-and-rest-knowledge",
+    "href": "modules/01-prerequisites/slides.html#database-and-rest-knowledge",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Database and REST Knowledge",
+    "text": "Database and REST Knowledge\n\n\nDatabase Integration:\n\nSpring Data JPA basics\nJDBC connection configuration\nDatabase migration tools (Flyway/Liquibase)\n\n@Entity\npublic class User {\n    @Id\n    @GeneratedValue\n    private Long id;\n    private String name;\n}\n\nRESTful Services:\n\n@RestController usage\nHTTP methods (GET, POST, PUT, DELETE)\nJSON serialization with Jackson\n\n@RestController\npublic class UserController {\n    @GetMapping(\"/users\")\n    public List&lt;User&gt; getUsers() {\n        return userService.findAll();\n    }\n}\n\n\nThese are the building blocks of most Spring Boot applications. Even if you’re not an expert, having basic familiarity with these concepts will help you understand deployment configurations.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#essential-linux-commands",
+    "href": "modules/01-prerequisites/slides.html#essential-linux-commands",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Essential Linux Commands",
+    "text": "Essential Linux Commands\nFile and Directory Operations:\nls -la          # List files with details\ncd /path/to/dir # Change directory  \nmkdir app-logs  # Create directory\nrm -rf old-app  # Remove files/directories\nFile Viewing and Editing:\ncat application.log     # View file contents\ntail -f application.log # Follow log files\nnano config.properties # Edit files\nProcess Management:\nps aux | grep java     # Find Java processes\nsudo systemctl start myapp  # Start services\n\nYou don’t need to be a Linux expert, but these commands will be essential for managing your deployed applications, viewing logs, and troubleshooting issues.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#file-permissions-and-services",
+    "href": "modules/01-prerequisites/slides.html#file-permissions-and-services",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "File Permissions and Services",
+    "text": "File Permissions and Services\n\n\nFile Permissions:\n# Make file executable\nchmod +x deploy.sh\n\n# Change ownership\nsudo chown app:app myapp.jar\n\n# Common permission patterns\nchmod 755 # rwxr-xr-x\nchmod 644 # rw-r--r--\n\nService Management:\n# Service operations\nsudo systemctl start myapp\nsudo systemctl enable myapp  \nsudo systemctl status myapp\nsudo systemctl restart myapp\n\n\nUnderstanding permissions is crucial for security, and systemd services are how we’ll run our Spring Boot applications in production environments.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#understanding-ports-and-firewalls",
+    "href": "modules/01-prerequisites/slides.html#understanding-ports-and-firewalls",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Understanding Ports and Firewalls",
+    "text": "Understanding Ports and Firewalls\nCommon Ports You’ll Use:\n\n\n\nService\nPort\nPurpose\n\n\n\n\nHTTP\n80\nWeb traffic\n\n\nHTTPS\n443\nSecure web traffic\n\n\nSSH\n22\nServer access\n\n\nSpring Boot\n8080\nDefault application port\n\n\nMySQL\n3306\nDatabase connections\n\n\n\nFirewall Concepts:\n\nInbound vs. Outbound rules\nPort ranges and protocols\nSource IP restrictions\n\n\nUnderstanding ports is essential for configuring firewalls and ensuring your applications are accessible. AWS Lightsail has a simple firewall interface that makes this manageable.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#verify-your-setup",
+    "href": "modules/01-prerequisites/slides.html#verify-your-setup",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Verify Your Setup",
+    "text": "Verify Your Setup\nComplete this checklist before proceeding:\n\nAWS account with billing information configured\nJDK 17+ installed and working\nMaven or Gradle build tool available\nGit version control system installed\nSSH client tested and functional\nBasic Spring Boot application available\nUnderstanding of Spring Boot profiles\nTest Command:bash java -version && mvn -version && git --version && ssh -V\n\n\nTaking time to verify your setup now will save hours of troubleshooting later. Each tool plays a crucial role in the deployment process.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#sample-application-ready",
+    "href": "modules/01-prerequisites/slides.html#sample-application-ready",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Sample Application Ready",
+    "text": "Sample Application Ready\nDon’t have a Spring Boot app?\nWe’ll provide a sample application that includes:\n\nREST endpoints for testing\nDatabase integration examples\nProduction-ready configuration\nHealth check endpoints\nLogging configuration\n\nQuick Test:\n./mvnw spring-boot:run\n# Visit http://localhost:8080\n\nEven if students don’t have their own application ready, our sample application will demonstrate all the concepts they need to apply to their own projects.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#key-takeaways",
+    "href": "modules/01-prerequisites/slides.html#key-takeaways",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\nEssential Requirements:\n\nAWS account for cloud resources\nJava development environment\nCommand line tool proficiency\nBasic Spring Boot knowledge\n\n\nSuccess Factors:\n\nUnderstanding of Linux basics\nNetwork and security concepts\nVersion control with Git\nService management principles\n\n\nYou’re Ready When: All checklist items are complete and you can run a Spring Boot application locally\n\nHaving these prerequisites in place ensures students can focus on learning deployment concepts rather than fighting with tool configuration issues.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/slides.html#whats-coming-next",
+    "href": "modules/01-prerequisites/slides.html#whats-coming-next",
+    "title": "Prerequisites for Deploying Spring Boot Apps to AWS Lightsail",
+    "section": "What’s Coming Next",
+    "text": "What’s Coming Next\nOur Deployment Journey:\n\nApplication Configuration - Setting up profiles and properties\nLightsail Instance Creation - Provisioning your server\nServer Environment Setup - Installing Java and dependencies\n\nApplication Deployment - Getting your app running\nProduction Optimization - SSL, monitoring, and scaling\n\nReady to Deploy? Let’s build something amazing! 🚀\n\nThis roadmap gives students confidence about what’s ahead and shows them the logical progression from prerequisites to a fully deployed, production-ready application.",
+    "crumbs": [
+      "Prerequisites",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#overview",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#overview",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Overview",
+    "text": "Overview\nWhat you’ll need before deploying Spring Boot apps to AWS Lightsail:\n\nAWS Account and Services\nDevelopment Environment Setup\n\nCommand Line Tools\nSpring Boot Knowledge\nLinux and Server Basics\nNetwork and Security Fundamentals\n\n\nThis lesson ensures students have all necessary prerequisites before starting the deployment process. We’ll cover accounts, tools, and foundational knowledge needed for success."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#aws-account-requirements",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#aws-account-requirements",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "AWS Account Requirements",
+    "text": "AWS Account Requirements\nEssential Services\n\nAWS Account with billing information\nLightsail Service access\nOptional: Custom domain from registrar\n\n\n\nSetup Steps:\n\nVisit aws.amazon.com\nCreate account\nAdd payment method\nVerify access\n\n\nFree Tier Benefits:\n\n750 hours/month (first month)\nPerfect for learning\nNo upfront costs\n\n\n\nAWS requires payment information even for free tier services. The Lightsail free tier provides excellent learning opportunities with 750 hours of usage in the first month."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#java-development-environment",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#java-development-environment",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Java Development Environment",
+    "text": "Java Development Environment\nCore Requirements\n\nJDK 17 or later\nBuild tool: Maven or Gradle\nIDE: IntelliJ IDEA, VS Code, or Eclipse\n\n# Verify your setup\njava -version\njavac -version\nmvn -version\ngradle -version\n\nStudents should verify their Java environment is properly configured. We recommend JDK 17+ for the latest Spring Boot features and long-term support."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#command-line-tools",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#command-line-tools",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Command Line Tools",
+    "text": "Command Line Tools\nEssential Tools\n\nSSH Client: Connect to Lightsail instances\nGit: Version control for your project\nAWS CLI: Advanced configurations (recommended)\n\n# Test your tools\nssh -V\ngit --version\naws --version\n\nSSH is critical for server management. Git is essential for project management. AWS CLI provides additional flexibility but isn’t strictly required for basic deployments."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#spring-boot-knowledge-prerequisites",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#spring-boot-knowledge-prerequisites",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Spring Boot Knowledge Prerequisites",
+    "text": "Spring Boot Knowledge Prerequisites\nCore Concepts You Need\n\n\nApplication Structure:\n\nSpring Boot Starters\nApplication Properties\nConfiguration Profiles\nAuto-configuration\n\n\nWeb Development:\n\nREST Controllers\nDatabase Integration\nJSON Serialization\nHTTP Methods\n\n\n\nStudents should understand basic Spring Boot concepts. We’ll provide a sample application for those who need it, but familiarity with these concepts is important for troubleshooting."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#linux-command-line-basics",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#linux-command-line-basics",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Linux Command Line Basics",
+    "text": "Linux Command Line Basics\nEssential Commands\n# File operations\nls, cd, mkdir, rm, cp, mv\n\n# File viewing/editing  \ncat, less, nano, vi\n\n# Process management\nps, kill, systemctl\n\n# Network utilities\ncurl, wget, netstat\n\nThese Linux commands are essential for server administration. Students will use these regularly when managing their Lightsail instances and troubleshooting deployments."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#file-permissions-and-services",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#file-permissions-and-services",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "File Permissions and Services",
+    "text": "File Permissions and Services\nSystem Administration Basics\n\n\nFile Permissions:\nchmod 755 filename\nsudo chown user:group filename\n\nService Management:\nsudo systemctl start service-name\nsudo systemctl enable service-name\nsudo systemctl status service-name\n\n\nUnderstanding file permissions and systemd services is crucial for Spring Boot deployment. We’ll cover these in detail later, but basic familiarity helps."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#network-and-security-fundamentals",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#network-and-security-fundamentals",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Network and Security Fundamentals",
+    "text": "Network and Security Fundamentals\nKey Concepts\nCommon Ports:\n\nHTTP: 80, HTTPS: 443\nSSH: 22, MySQL: 3306\nSpring Boot Default: 8080\n\nSecurity Basics:\n\nInbound vs. Outbound rules\nPort restrictions\nIP-based access control\n\n\nUnderstanding ports and basic firewall concepts is essential for configuring Lightsail security groups and ensuring your application is accessible while remaining secure."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#pre-deployment-checklist",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#pre-deployment-checklist",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Pre-Deployment Checklist",
+    "text": "Pre-Deployment Checklist\nVerify Your Setup ✅\n\nAWS account with billing configured\nJDK 17+ and build tools installed\nGit and SSH client working\nBasic Spring Boot knowledge\nComfortable with command line\nSample application ready (or will use ours)\n\n\nStudents should work through this checklist before proceeding. Having everything ready prevents frustration during the actual deployment process."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#testing-your-environment",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#testing-your-environment",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Testing Your Environment",
+    "text": "Testing Your Environment\nQuick Validation Test\nCreate and run a simple Spring Boot “Hello World”:\n# Create project\nspring init --dependencies=web my-test-app\n\n# Run locally\ncd my-test-app\n./mvnw spring-boot:run\n\n# Test\ncurl http://localhost:8080\n\nThis quick test validates that the entire development environment is working correctly. Students should be able to create, build, and run a basic Spring Boot application before moving to deployment."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites-slides.html#summary---ready-for-deployment",
+    "href": "modules/01-prerequisites/01-prerequisites-slides.html#summary---ready-for-deployment",
+    "title": "Prerequisites for Spring Boot AWS Lightsail Deployment",
+    "section": "Summary - Ready for Deployment",
+    "text": "Summary - Ready for Deployment\nWith these prerequisites in place:\n\nAWS Account: Ready for Lightsail instances\nDevelopment Tools: Complete Java environment\nCommand Line Skills: SSH, Git, Linux basics\nSpring Boot Foundation: Understanding core concepts\nSystem Knowledge: Permissions, services, networking\n\nNext: Configuring Spring Boot profiles for deployment\n\nThis comprehensive preparation ensures students can follow along confidently and troubleshoot independently. Taking time to verify each requirement saves significant time and frustration during deployment."
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html",
+    "href": "modules/01-prerequisites/01-prerequisites.html",
+    "title": "Prerequisites",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#lecture-slides",
+    "href": "modules/01-prerequisites/01-prerequisites.html#lecture-slides",
+    "title": "Prerequisites",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#introduction",
+    "href": "modules/01-prerequisites/01-prerequisites.html#introduction",
+    "title": "Prerequisites",
+    "section": "Introduction",
+    "text": "Introduction\nBefore diving into deploying Spring Boot applications to AWS Lightsail, it’s essential to ensure you have all the necessary tools, accounts, and foundational knowledge in place. This lesson will walk you through everything you need to get started successfully.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#required-accounts-and-services",
+    "href": "modules/01-prerequisites/01-prerequisites.html#required-accounts-and-services",
+    "title": "Prerequisites",
+    "section": "Required Accounts and Services",
+    "text": "Required Accounts and Services\n\nAWS Account\nYou’ll need an active AWS account to create and manage Lightsail instances. If you don’t have one:\n\nVisit aws.amazon.com\nClick “Create an AWS Account”\nFollow the registration process\nProvide payment information (required even for free tier services)\n\n\n\n\n\n\n\nNoteAWS Free Tier\n\n\n\nAWS Lightsail offers a free tier that includes 750 hours of usage per month for the first month, which is perfect for learning and testing deployments.\n\n\n\n\nDomain Registrar (Optional but Recommended)\nWhile not strictly required, having a custom domain makes your application look more professional. You can register domains through:\n\nAWS Route 53\nNamecheap\nGoDaddy\nCloudflare\nAny other domain registrar",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#development-environment-setup",
+    "href": "modules/01-prerequisites/01-prerequisites.html#development-environment-setup",
+    "title": "Prerequisites",
+    "section": "Development Environment Setup",
+    "text": "Development Environment Setup\n\nJava Development Kit (JDK)\nEnsure you have JDK 17 or later installed on your development machine:\n# Check your Java version\njava -version\njavac -version\nIf you need to install or update Java: - Windows/macOS: Download from Oracle or use OpenJDK - Linux: Use your package manager (e.g., sudo apt install openjdk-17-jdk)\n\n\nMaven or Gradle\nYou’ll need a build tool to package your Spring Boot application:\nMaven:\n# Check Maven installation\nmvn -version\nGradle:\n# Check Gradle installation\ngradle -version\n\n\n\n\n\n\nTipSpring Boot CLI Alternative\n\n\n\nIf you prefer, you can use the Spring Boot CLI for rapid prototyping, though we’ll primarily use Maven/Gradle in this course.\n\n\n\n\nIntegrated Development Environment (IDE)\nWhile any text editor works, these IDEs provide excellent Spring Boot support:\n\nIntelliJ IDEA (Community or Ultimate)\nVisual Studio Code with Java extensions\nEclipse with Spring Tools Suite\nSpring Tool Suite (STS)",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#command-line-tools",
+    "href": "modules/01-prerequisites/01-prerequisites.html#command-line-tools",
+    "title": "Prerequisites",
+    "section": "Command Line Tools",
+    "text": "Command Line Tools\n\nSSH Client\nYou’ll need SSH access to connect to your Lightsail instance:\n\nWindows: Built-in OpenSSH (Windows 10+), PuTTY, or Windows Subsystem for Linux (WSL)\nmacOS/Linux: Built-in OpenSSH client\n\nTest SSH availability:\nssh -V\n\n\nGit\nVersion control is essential for managing your Spring Boot project:\n# Check Git installation\ngit --version\nIf not installed:\n\nWindows: Download from git-scm.com\nmacOS: Install via Homebrew (brew install git) or Xcode Command Line Tools\nLinux: Use your package manager (sudo apt install git)\n\n\n\nAWS CLI (Recommended)\nWhile not strictly required, the AWS CLI can be helpful for advanced configurations:\n# Check AWS CLI installation\naws --version\nInstall from AWS CLI documentation.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#spring-boot-knowledge-prerequisites",
+    "href": "modules/01-prerequisites/01-prerequisites.html#spring-boot-knowledge-prerequisites",
+    "title": "Prerequisites",
+    "section": "Spring Boot Knowledge Prerequisites",
+    "text": "Spring Boot Knowledge Prerequisites\n\nCore Spring Boot Concepts\nYou should be familiar with:\n\nSpring Boot Starters: Understanding how to include dependencies\nApplication Properties: Using application.properties or application.yml\nProfiles: Development vs. production configurations\nAuto-configuration: How Spring Boot automatically configures components\nEmbedded Servers: Understanding Tomcat, Jetty, or Undertow\n\n\n\nDatabase Integration\nBasic knowledge of:\n\nSpring Data JPA: Entity mapping and repository patterns\nDatabase Connections: JDBC URLs and connection pooling\nMigration Tools: Flyway or Liquibase (helpful but not required)\n\n\n\nRESTful Services\nUnderstanding of:\n\nREST Controllers: @RestController and @RequestMapping\nHTTP Methods: GET, POST, PUT, DELETE\nJSON Serialization: Jackson integration in Spring Boot\n\n\n\n\n\n\n\nNoteSample Application\n\n\n\nDon’t worry if you don’t have a Spring Boot application ready—we’ll work with a sample application that demonstrates all these concepts throughout the course.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#basic-linux-and-server-administration",
+    "href": "modules/01-prerequisites/01-prerequisites.html#basic-linux-and-server-administration",
+    "title": "Prerequisites",
+    "section": "Basic Linux and Server Administration",
+    "text": "Basic Linux and Server Administration\n\nCommand Line Navigation\nYou should be comfortable with basic Linux commands:\n# File and directory operations\nls, cd, mkdir, rm, cp, mv\n\n# File viewing and editing\ncat, less, nano, vi\n\n# Process management\nps, kill, systemctl\n\n# Network utilities\ncurl, wget, netstat\n\n\nFile Permissions\nUnderstanding Linux file permissions and ownership:\n# Change file permissions\nchmod 755 filename\n\n# Change ownership\nsudo chown user:group filename\n\n\nService Management\nBasic knowledge of systemd services (we’ll cover this in detail later):\n# Service operations\nsudo systemctl start service-name\nsudo systemctl enable service-name\nsudo systemctl status service-name",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#network-and-security-basics",
+    "href": "modules/01-prerequisites/01-prerequisites.html#network-and-security-basics",
+    "title": "Prerequisites",
+    "section": "Network and Security Basics",
+    "text": "Network and Security Basics\n\nUnderstanding Ports\nFamiliarity with common ports:\n\nHTTP: 80\nHTTPS: 443\nSSH: 22\nMySQL: 3306\nSpring Boot Default: 8080\n\n\n\nFirewall Concepts\nBasic understanding of:\n\nInbound vs. Outbound Rules: Controlling traffic direction\nPort Ranges: Allowing specific ports or ranges\nSource Restrictions: Limiting access by IP address",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#pre-deployment-checklist",
+    "href": "modules/01-prerequisites/01-prerequisites.html#pre-deployment-checklist",
+    "title": "Prerequisites",
+    "section": "Pre-Deployment Checklist",
+    "text": "Pre-Deployment Checklist\nBefore starting the deployment process, ensure you have:\n\nActive AWS account with billing information\nJDK 17+ installed and configured\nMaven or Gradle build tool\nGit for version control\nSSH client for server access\nBasic Spring Boot application (or willingness to use our sample)\nUnderstanding of Spring Boot profiles and configuration\n\n\n\n\n\n\n\nTipTesting Your Setup\n\n\n\nCreate a simple “Hello World” Spring Boot application and run it locally to ensure your development environment is working correctly before proceeding to AWS deployment.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#whats-next",
+    "href": "modules/01-prerequisites/01-prerequisites.html#whats-next",
+    "title": "Prerequisites",
+    "section": "What’s Next",
+    "text": "What’s Next\nWith these prerequisites in place, you’re ready to begin the deployment journey. In the next section, we’ll start by configuring development and production profiles in your Spring Boot application, setting the foundation for a smooth deployment process.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/01-prerequisites/01-prerequisites.html#summary-and-key-takeaways",
+    "href": "modules/01-prerequisites/01-prerequisites.html#summary-and-key-takeaways",
+    "title": "Prerequisites",
+    "section": "Summary and Key Takeaways",
+    "text": "Summary and Key Takeaways\n\nAWS Account: Essential for creating Lightsail instances\nDevelopment Tools: JDK 17+, Maven/Gradle, and a good IDE\nCommand Line Skills: SSH, Git, and basic Linux commands\nSpring Boot Knowledge: Profiles, configuration, and basic web development\nServer Basics: Understanding ports, services, and file permissions\n\nHaving these prerequisites covered ensures you can follow along with confidence and troubleshoot issues independently. Take time to verify each requirement before moving forward—it will save you time and frustration in the later stages of deployment.",
+    "crumbs": [
+      "Prerequisites",
+      "Prerequisites"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html",
+    "href": "modules/02-steps/04-fourth-step.html",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#lecture-slides",
+    "href": "modules/02-steps/04-fourth-step.html#lecture-slides",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#introduction",
+    "href": "modules/02-steps/04-fourth-step.html#introduction",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Introduction",
+    "text": "Introduction\nIn this step, you’ll deploy your Spring Boot application to the AWS Lightsail server you’ve configured. We’ll install Java, transfer your application files, configure environment variables, and set up the application to run as a system service.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#understanding-the-deployment-process",
+    "href": "modules/02-steps/04-fourth-step.html#understanding-the-deployment-process",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Understanding the Deployment Process",
+    "text": "Understanding the Deployment Process\nDeploying a Spring Boot application to a Linux server involves several key components:\n\nInstalling the Java Runtime Environment (JRE)\nTransferring your compiled JAR file to the server\nConfiguring production environment variables\nSetting up the application as a system service for automatic startup\n\n\n\n\n\n\n\nTipBest Practice\n\n\n\nAlways test your application locally with production profiles before deploying to ensure your configurations work correctly in the target environment.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#installing-java-on-your-lightsail-instance",
+    "href": "modules/02-steps/04-fourth-step.html#installing-java-on-your-lightsail-instance",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Installing Java on Your Lightsail Instance",
+    "text": "Installing Java on Your Lightsail Instance\nFirst, let’s install OpenJDK 17, which is the recommended Java version for modern Spring Boot applications.\n\nConnect to Your Instance\nSSH into your Lightsail instance using the browser-based SSH client or your preferred SSH client:\n# If using external SSH client\nssh -i your-key.pem ubuntu@your-lightsail-ip\n\n\nInstall OpenJDK 17\nUpdate the package manager and install Java:\n# Update package lists\nsudo apt update\n\n# Install OpenJDK 17\nsudo apt install openjdk-17-jdk -y\n\n# Verify installation\njava -version\njavac -version\n\n\n\n\n\n\nNoteJava Version Compatibility\n\n\n\nOpenJDK 17 is the current LTS (Long Term Support) version and is fully compatible with Spring Boot 3.x. If you’re using Spring Boot 2.x, OpenJDK 11 is also supported.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#preparing-your-application-for-deployment",
+    "href": "modules/02-steps/04-fourth-step.html#preparing-your-application-for-deployment",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Preparing Your Application for Deployment",
+    "text": "Preparing Your Application for Deployment\n\nBuilding Your Application JAR\nOn your local development machine, build your Spring Boot application:\n# Using Maven\n./mvnw clean package -DskipTests\n\n# Using Gradle\n./gradlew build -x test\nThis creates a JAR file in your target/ (Maven) or build/libs/ (Gradle) directory.\n\n\nCreate Application Directory Structure\nBack on your Lightsail server, create the directory structure for your application:\n# Create application directory\nsudo mkdir -p /opt/myapp\n\n# Create logs directory\nsudo mkdir -p /var/log/myapp\n\n# Create application user\nsudo useradd -r -s /bin/false myapp\n\n# Set ownership\nsudo chown -R myapp:myapp /opt/myapp\nsudo chown -R myapp:myapp /var/log/myapp",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#transferring-your-application-to-the-server",
+    "href": "modules/02-steps/04-fourth-step.html#transferring-your-application-to-the-server",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Transferring Your Application to the Server",
+    "text": "Transferring Your Application to the Server\n\nUsing SCP to Transfer Files\nFrom your local machine, transfer your JAR file to the server:\n# Transfer JAR file\nscp -i your-key.pem target/myapp-0.0.1-SNAPSHOT.jar ubuntu@your-lightsail-ip:/home/ubuntu/\n\n# SSH back to server and move file\nssh -i your-key.pem ubuntu@your-lightsail-ip\nsudo mv /home/ubuntu/myapp-0.0.1-SNAPSHOT.jar /opt/myapp/myapp.jar\nsudo chown myapp:myapp /opt/myapp/myapp.jar\n\n\n\n\n\n\nTipAlternative Transfer Methods\n\n\n\nYou can also use rsync, SFTP, or even Git to deploy your code and build directly on the server. Choose the method that best fits your deployment workflow.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#configuring-environment-variables",
+    "href": "modules/02-steps/04-fourth-step.html#configuring-environment-variables",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Configuring Environment Variables",
+    "text": "Configuring Environment Variables\n\nCreate Environment Configuration\nCreate a configuration file for your production environment variables:\nsudo nano /opt/myapp/application.env\nAdd your production configuration:\n# /opt/myapp/application.env\n\n# Spring Profile\nSPRING_PROFILES_ACTIVE=prod\n\n# Database Configuration\nDB_HOST=your-lightsail-db-endpoint\nDB_PORT=3306\nDB_NAME=myapp_prod\nDB_USERNAME=myappuser\nDB_PASSWORD=your-secure-password\n\n# Server Configuration\nSERVER_PORT=8080\n\n# Logging\nLOGGING_LEVEL_ROOT=WARN\nLOGGING_LEVEL_COM_YOURPACKAGE=INFO\n\n# JVM Options\nJAVA_OPTS=-Xms512m -Xmx1024m -Dspring.profiles.active=prod\nSet appropriate permissions:\nsudo chown myapp:myapp /opt/myapp/application.env\nsudo chmod 600 /opt/myapp/application.env",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#creating-a-system-service",
+    "href": "modules/02-steps/04-fourth-step.html#creating-a-system-service",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Creating a System Service",
+    "text": "Creating a System Service\n\nCreate Systemd Service File\nCreate a systemd service file to manage your Spring Boot application:\nsudo nano /etc/systemd/system/myapp.service\nAdd the following configuration:\n[Unit]\nDescription=My Spring Boot Application\nAfter=network.target\n\n[Service]\nType=exec\nUser=myapp\nGroup=myapp\nExecStart=/usr/bin/java -jar /opt/myapp/myapp.jar\nEnvironmentFile=/opt/myapp/application.env\nWorkingDirectory=/opt/myapp\nStandardOutput=append:/var/log/myapp/application.log\nStandardError=append:/var/log/myapp/error.log\nRestart=always\nRestartSec=10\n\n[Install]\nWantedBy=multi-user.target\n\n\nEnable and Start the Service\n# Reload systemd configuration\nsudo systemctl daemon-reload\n\n# Enable service to start on boot\nsudo systemctl enable myapp.service\n\n# Start the service\nsudo systemctl start myapp.service\n\n# Check service status\nsudo systemctl status myapp.service\n\n\n\n\n\n\nWarningService Startup Issues\n\n\n\nIf your service fails to start, check the logs using sudo journalctl -u myapp.service -f to identify configuration or dependency issues.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#configuring-application-properties-for-production",
+    "href": "modules/02-steps/04-fourth-step.html#configuring-application-properties-for-production",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Configuring Application Properties for Production",
+    "text": "Configuring Application Properties for Production\nEnsure your application-prod.properties file contains the correct database configuration:\n# src/main/resources/application-prod.properties\n\n# Database configuration using environment variables\nspring.datasource.url=jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:myapp}\nspring.datasource.username=${DB_USERNAME:root}\nspring.datasource.password=${DB_PASSWORD:password}\n\n# Production optimizations\nspring.jpa.hibernate.ddl-auto=validate\nspring.jpa.show-sql=false\n\n# Server configuration\nserver.port=${SERVER_PORT:8080}\n\n# Logging configuration\nlogging.level.root=${LOGGING_LEVEL_ROOT:INFO}\nlogging.file.name=/var/log/myapp/application.log\nlogging.pattern.file=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n\n\n# Security headers\nserver.servlet.session.cookie.secure=true\nserver.servlet.session.cookie.http-only=true",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#testing-your-deployment",
+    "href": "modules/02-steps/04-fourth-step.html#testing-your-deployment",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Testing Your Deployment",
+    "text": "Testing Your Deployment\n\nVerify Application Status\nCheck that your application is running correctly:\n# Check service status\nsudo systemctl status myapp.service\n\n# View recent logs\nsudo tail -f /var/log/myapp/application.log\n\n# Test application endpoint\ncurl http://localhost:8080/actuator/health\n\n\nCheck Network Connectivity\nVerify your application is accessible:\n# Test local connection\ncurl -I http://localhost:8080\n\n# Check if port is listening\nsudo netstat -tlnp | grep :8080\n\n\nConfigure Lightsail Firewall\nOpen the necessary ports in your Lightsail instance firewall:\n\nGo to the Lightsail console\nSelect your instance\nClick the Networking tab\nAdd a custom rule:\n\nApplication: Custom\nProtocol: TCP\nPort: 8080\n\n\n\n\n\n\n\n\nNotePort 8080 is Temporary\n\n\n\nWe’re opening port 8080 for testing purposes. In the next step, we’ll configure Nginx as a reverse proxy, which will handle HTTP (80) and HTTPS (443) traffic.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#monitoring-and-log-management",
+    "href": "modules/02-steps/04-fourth-step.html#monitoring-and-log-management",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Monitoring and Log Management",
+    "text": "Monitoring and Log Management\n\nSet Up Log Rotation\nCreate a logrotate configuration to manage log file sizes:\nsudo nano /etc/logrotate.d/myapp\nAdd the following configuration:\n/var/log/myapp/*.log {\n    daily\n    rotate 30\n    compress\n    delaycompress\n    missingok\n    notifempty\n    create 0644 myapp myapp\n    postrotate\n        systemctl reload myapp.service &gt; /dev/null 2&gt;&1 || true\n    endscript\n}\n\n\nBasic Monitoring Commands\nKeep these commands handy for monitoring your application:\n# Check application status\nsudo systemctl status myapp.service\n\n# View real-time logs\nsudo journalctl -u myapp.service -f\n\n# Check memory usage\nfree -h\n\n# Check disk usage\ndf -h\n\n# Monitor CPU and memory usage\ntop",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#troubleshooting-common-issues",
+    "href": "modules/02-steps/04-fourth-step.html#troubleshooting-common-issues",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Troubleshooting Common Issues",
+    "text": "Troubleshooting Common Issues\n\nApplication Won’t Start\n\nCheck Java installation: java -version\nVerify JAR file exists and has correct permissions\nCheck environment file syntax and permissions\nReview systemd logs: sudo journalctl -u myapp.service -n 50\n\n\n\nDatabase Connection Issues\n\nVerify database is running and accessible\nTest connection from server: mysql -h DB_HOST -u DB_USERNAME -p\nCheck environment variables are correctly set\nVerify firewall allows database connections\n\n\n\nMemory Issues\n\nMonitor memory usage: free -h\nAdjust JVM heap settings in JAVA_OPTS\nConsider upgrading your Lightsail instance plan",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/04-fourth-step.html#summary-and-key-takeaways",
+    "href": "modules/02-steps/04-fourth-step.html#summary-and-key-takeaways",
+    "title": "Step 4: Deploy Spring Boot Application to Lightsail Server",
+    "section": "Summary and Key Takeaways",
+    "text": "Summary and Key Takeaways\nIn this step, you’ve successfully:\n\nInstalled Java 17 on your Lightsail server for running Spring Boot applications\nCreated a proper directory structure with appropriate user permissions for security\nTransferred your application JAR file to the production server\nConfigured environment variables for production database and application settings\nSet up a systemd service for automatic application startup and management\nImplemented logging with proper rotation to prevent disk space issues\nConfigured basic monitoring tools to track application health\n\nYour Spring Boot application is now running on AWS Lightsail, but it’s only accessible via port 8080. In the next step, we’ll configure Nginx as a reverse proxy to handle web traffic on standard HTTP/HTTPS ports and improve performance and security.\n\n\n\n\n\n\nTipNext Steps Preview\n\n\n\nThe next step will involve setting up Nginx to proxy requests to your Spring Boot application, enabling you to serve traffic on port 80 (HTTP) and eventually port 443 (HTTPS) with SSL certificates.",
+    "crumbs": [
+      "Steps",
+      "Fourth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html",
+    "href": "modules/02-steps/05-fifth-step.html",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#lecture-slides",
+    "href": "modules/02-steps/05-fifth-step.html#lecture-slides",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#introduction",
+    "href": "modules/02-steps/05-fifth-step.html#introduction",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Introduction",
+    "text": "Introduction\nIn this step, you’ll configure Nginx as a reverse proxy for your Spring Boot application. This setup improves performance, provides better security, and enables you to serve static content efficiently while forwarding dynamic requests to your Java application.",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#understanding-reverse-proxy-architecture",
+    "href": "modules/02-steps/05-fifth-step.html#understanding-reverse-proxy-architecture",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Understanding Reverse Proxy Architecture",
+    "text": "Understanding Reverse Proxy Architecture\nA reverse proxy sits between client requests and your Spring Boot application, acting as an intermediary that forwards requests to your backend service. This architecture provides several benefits:\n\nPerformance: Nginx can serve static content directly and cache responses\nSecurity: Hides your application server details from external clients\nLoad Balancing: Can distribute requests across multiple application instances\nSSL Termination: Handles SSL/TLS encryption and decryption\n\n\n\n\n\n\n\nTipWhy Use Nginx with Spring Boot?\n\n\n\nWhile Spring Boot has an embedded Tomcat server, using Nginx as a front-end proxy is a production best practice that improves scalability and security.",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#installing-and-configuring-nginx",
+    "href": "modules/02-steps/05-fifth-step.html#installing-and-configuring-nginx",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Installing and Configuring Nginx",
+    "text": "Installing and Configuring Nginx\n\nStep 1: Install Nginx on Your Lightsail Instance\nConnect to your Lightsail instance via SSH and install Nginx:\n# Update package lists\nsudo apt update\n\n# Install Nginx\nsudo apt install nginx -y\n\n# Check if Nginx is running\nsudo systemctl status nginx\n\n# Enable Nginx to start on boot\nsudo systemctl enable nginx\n\n\nStep 2: Configure Firewall Rules\nUpdate your Lightsail instance’s firewall to allow HTTP and HTTPS traffic:\n# Allow HTTP traffic (port 80)\nsudo ufw allow 'Nginx HTTP'\n\n# Allow HTTPS traffic (port 443)\nsudo ufw allow 'Nginx HTTPS'\n\n# Check firewall status\nsudo ufw status\n\n\n\n\n\n\nNoteLightsail Networking Tab\n\n\n\nAlso ensure that ports 80 (HTTP) and 443 (HTTPS) are open in your Lightsail instance’s Networking tab in the AWS console.\n\n\n\n\nStep 3: Create Nginx Configuration for Your Spring Boot App\nCreate a new Nginx server block configuration:\n# Create configuration file\nsudo nano /etc/nginx/sites-available/spring-boot-app\nAdd the following configuration:\nserver {\n    listen 80;\n    server_name your-domain.com www.your-domain.com;\n    \n    # Security headers\n    add_header X-Frame-Options \"SAMEORIGIN\" always;\n    add_header X-Content-Type-Options \"nosniff\" always;\n    add_header X-XSS-Protection \"1; mode=block\" always;\n    add_header Referrer-Policy \"no-referrer-when-downgrade\" always;\n    \n    # Gzip compression\n    gzip on;\n    gzip_vary on;\n    gzip_min_length 1024;\n    gzip_proxied any;\n    gzip_comp_level 6;\n    gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;\n    \n    # Static content location (if you have static assets)\n    location /static/ {\n        alias /home/ubuntu/app/static/;\n        expires 1y;\n        add_header Cache-Control \"public, immutable\";\n    }\n    \n    # Health check endpoint (bypass proxy for quick responses)\n    location /actuator/health {\n        proxy_pass http://localhost:8080;\n        proxy_http_version 1.1;\n        proxy_set_header Connection \"\";\n        proxy_connect_timeout 2s;\n        proxy_read_timeout 2s;\n    }\n    \n    # Main application proxy\n    location / {\n        proxy_pass http://localhost:8080;\n        proxy_http_version 1.1;\n        proxy_set_header Upgrade $http_upgrade;\n        proxy_set_header Connection 'upgrade';\n        proxy_set_header Host $host;\n        proxy_set_header X-Real-IP $remote_addr;\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n        proxy_set_header X-Forwarded-Proto $scheme;\n        proxy_cache_bypass $http_upgrade;\n        proxy_read_timeout 300s;\n        proxy_connect_timeout 75s;\n    }\n    \n    # Custom error pages\n    error_page 502 503 504 /50x.html;\n    location = /50x.html {\n        root /var/www/html;\n    }\n}\n\n\nStep 4: Enable the Configuration\n# Create symbolic link to enable the site\nsudo ln -s /etc/nginx/sites-available/spring-boot-app /etc/nginx/sites-enabled/\n\n# Remove default Nginx site\nsudo rm /etc/nginx/sites-enabled/default\n\n# Test Nginx configuration\nsudo nginx -t\n\n# Reload Nginx to apply changes\nsudo systemctl reload nginx",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#advanced-nginx-configuration",
+    "href": "modules/02-steps/05-fifth-step.html#advanced-nginx-configuration",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Advanced Nginx Configuration",
+    "text": "Advanced Nginx Configuration\n\nImplementing Rate Limiting\nAdd rate limiting to protect your application from abuse:\n# Add this to the http block in /etc/nginx/nginx.conf\nhttp {\n    # Rate limiting zones\n    limit_req_zone $binary_remote_addr zone=login:10m rate=5r/m;\n    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;\n    limit_req_zone $binary_remote_addr zone=general:10m rate=1r/s;\n    \n    # Include your site configuration\n    include /etc/nginx/sites-enabled/*;\n}\nThen update your site configuration to use rate limiting:\n# Add these location blocks to your server configuration\nlocation /api/auth/login {\n    limit_req zone=login burst=3 nodelay;\n    proxy_pass http://localhost:8080;\n    # ... other proxy settings\n}\n\nlocation /api/ {\n    limit_req zone=api burst=20 nodelay;\n    proxy_pass http://localhost:8080;\n    # ... other proxy settings\n}\n\nlocation / {\n    limit_req zone=general burst=10 nodelay;\n    proxy_pass http://localhost:8080;\n    # ... other proxy settings\n}\n\n\nSetting Up Log Files\nConfigure custom log files for better monitoring:\nserver {\n    # Custom log files\n    access_log /var/log/nginx/spring-boot-app.access.log;\n    error_log /var/log/nginx/spring-boot-app.error.log;\n    \n    # ... rest of configuration\n}\n\n\nOptimizing for Static Content\nIf your Spring Boot app serves static content, optimize Nginx for better performance:\n# Add to your server block\nlocation ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg)$ {\n    expires 1y;\n    add_header Cache-Control \"public, immutable\";\n    access_log off;\n    try_files $uri @proxy;\n}\n\nlocation @proxy {\n    proxy_pass http://localhost:8080;\n    # ... other proxy settings\n}",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#testing-your-configuration",
+    "href": "modules/02-steps/05-fifth-step.html#testing-your-configuration",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Testing Your Configuration",
+    "text": "Testing Your Configuration\n\nStep 1: Verify Nginx is Running\n# Check Nginx status\nsudo systemctl status nginx\n\n# Check if Nginx is listening on port 80\nsudo netstat -tlnp | grep :80\n\n\nStep 2: Test the Reverse Proxy\n# Test from your server (should show Spring Boot app response)\ncurl -I http://localhost\n\n# Check Nginx logs\nsudo tail -f /var/log/nginx/access.log\nsudo tail -f /var/log/nginx/error.log\n\n\nStep 3: Access from Browser\n\nOpen your browser and navigate to your Lightsail instance’s public IP\nYou should see your Spring Boot application served through Nginx\nCheck the browser’s developer tools to verify response headers include Nginx security headers\n\n\n\n\n\n\n\nWarningTroubleshooting Common Issues\n\n\n\n\n502 Bad Gateway: Your Spring Boot app isn’t running on port 8080\nConnection refused: Check if ports 80/443 are open in Lightsail firewall\nConfiguration errors: Run sudo nginx -t to validate your config",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#monitoring-and-maintenance",
+    "href": "modules/02-steps/05-fifth-step.html#monitoring-and-maintenance",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Monitoring and Maintenance",
+    "text": "Monitoring and Maintenance\n\nSetting Up Log Rotation\nConfigure log rotation to prevent disk space issues:\n# Create log rotation configuration\nsudo nano /etc/logrotate.d/nginx-spring-boot\n\n# Add the following content:\n/var/log/nginx/spring-boot-app.*.log {\n    daily\n    missingok\n    rotate 52\n    compress\n    notifempty\n    create 0644 www-data www-data\n    postrotate\n        if [ -f /var/run/nginx.pid ]; then\n            kill -USR1 `cat /var/run/nginx.pid`\n        fi\n    endscript\n}\n\n\nPerformance Monitoring\nMonitor your reverse proxy performance:\n# Check Nginx processes\nps aux | grep nginx\n\n# Monitor active connections\ncurl http://localhost/nginx_status\n\n# Check system resources\nhtop",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/05-fifth-step.html#summary-and-key-takeaways",
+    "href": "modules/02-steps/05-fifth-step.html#summary-and-key-takeaways",
+    "title": "Step 5: Configure Reverse Proxy with Nginx",
+    "section": "Summary and Key Takeaways",
+    "text": "Summary and Key Takeaways\nIn this step, you’ve successfully configured Nginx as a reverse proxy for your Spring Boot application. This setup provides:\n\nEnhanced Security: Security headers and request filtering\nImproved Performance: Static content serving and compression\nBetter Monitoring: Detailed logging and health checks\nProduction Readiness: Rate limiting and error handling\n\nKey configuration points: - Nginx listens on port 80 and forwards requests to Spring Boot on port 8080 - Security headers protect against common web vulnerabilities - Gzip compression reduces bandwidth usage - Custom error pages provide better user experience - Rate limiting prevents abuse and DDoS attacks\nYour application is now accessible through Nginx, providing a professional and secure front-end to your Spring Boot service. In the next step, we’ll add a custom domain and SSL certificate to complete your production deployment.",
+    "crumbs": [
+      "Steps",
+      "Fifth Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html",
+    "href": "modules/02-steps/01-first-step.html",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#lecture-slides",
+    "href": "modules/02-steps/01-first-step.html#lecture-slides",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "",
+    "text": "Either click on the slide area below or click here to view it in fullscreen. Use your keypad to navigate the slides.\n\n\n\n\nA PDF printable handout version of the slides is available here",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#introduction",
+    "href": "modules/02-steps/01-first-step.html#introduction",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Introduction",
+    "text": "Introduction\nIn this step, you’ll configure separate application profiles for development and production environments, ensuring your Spring Boot application can seamlessly transition from local development to AWS Lightsail deployment.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#understanding-spring-boot-profiles",
+    "href": "modules/02-steps/01-first-step.html#understanding-spring-boot-profiles",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Understanding Spring Boot Profiles",
+    "text": "Understanding Spring Boot Profiles\nSpring Boot profiles allow you to segregate parts of your application configuration and make it available only in certain environments. This is crucial when deploying to cloud platforms like AWS Lightsail, where database connections, logging levels, and other configurations differ from your local development setup.\n\n\n\n\n\n\nTipWhy Profiles Matter\n\n\n\nUsing profiles prevents hardcoding production credentials in your code and allows you to test locally with development databases while deploying with production settings.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#setting-up-application-properties-files",
+    "href": "modules/02-steps/01-first-step.html#setting-up-application-properties-files",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Setting Up Application Properties Files",
+    "text": "Setting Up Application Properties Files\n\nCreating the Base Configuration\nFirst, let’s set up your main application.properties file with common configurations that apply to all environments:\n# src/main/resources/application.properties\n\n# Application name and basic settings\nspring.application.name=my-spring-app\nserver.servlet.context-path=/\n\n# Default active profile (will be overridden in production)\nspring.profiles.active=dev\n\n# JPA/Hibernate common settings\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.show-sql=false\nspring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect\n\n# Logging configuration\nlogging.level.root=INFO\nlogging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n\n\n\nDevelopment Profile Configuration\nCreate application-dev.properties for your local development environment:\n# src/main/resources/application-dev.properties\n\n# Local MySQL database configuration\nspring.datasource.url=jdbc:mysql://localhost:3306/myapp_dev\nspring.datasource.username=dev_user\nspring.datasource.password=dev_password\nspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver\n\n# Development-specific settings\nspring.jpa.show-sql=true\nlogging.level.org.springframework.web=DEBUG\nlogging.level.org.hibernate.SQL=DEBUG\n\n# Server configuration for local development\nserver.port=8080\n\n\nProduction Profile Configuration\nCreate application-prod.properties for your AWS Lightsail deployment:\n# src/main/resources/application-prod.properties\n\n# Production MySQL database configuration (will be set via environment variables)\nspring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/myapp_prod}\nspring.datasource.username=${DB_USERNAME:prod_user}\nspring.datasource.password=${DB_PASSWORD:secure_password}\nspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver\n\n# Production optimizations\nspring.jpa.show-sql=false\nspring.jpa.hibernate.ddl-auto=validate\n\n# Security and performance settings\nserver.port=8080\nserver.compression.enabled=true\nserver.compression.mime-types=text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json\nserver.compression.min-response-size=1024\n\n# Logging for production\nlogging.level.org.springframework.web=WARN\nlogging.level.org.hibernate.SQL=WARN\nlogging.file.name=/var/log/myapp/application.log\n\n\n\n\n\n\nNoteEnvironment Variables in Production\n\n\n\nNotice how the production profile uses ${DB_URL:default_value} syntax. This allows you to override database settings using environment variables on your Lightsail server without changing your code.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#updating-your-build-configuration",
+    "href": "modules/02-steps/01-first-step.html#updating-your-build-configuration",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Updating Your Build Configuration",
+    "text": "Updating Your Build Configuration\n\nMaven Configuration\nIf you’re using Maven, ensure your pom.xml includes the MySQL connector dependency:\n&lt;!-- pom.xml --&gt;\n&lt;dependency&gt;\n    &lt;groupId&gt;mysql&lt;/groupId&gt;\n    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;\n    &lt;scope&gt;runtime&lt;/scope&gt;\n&lt;/dependency&gt;\n\n&lt;!-- Spring Boot Starter Data JPA (if not already included) --&gt;\n&lt;dependency&gt;\n    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\n    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;\n&lt;/dependency&gt;\nAlso add the Maven plugin configuration for building executable JARs:\n&lt;build&gt;\n    &lt;plugins&gt;\n        &lt;plugin&gt;\n            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\n            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;\n            &lt;configuration&gt;\n                &lt;excludes&gt;\n                    &lt;exclude&gt;\n                        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;\n                        &lt;artifactId&gt;lombok&lt;/artifactId&gt;\n                    &lt;/exclude&gt;\n                &lt;/excludes&gt;\n            &lt;/configuration&gt;\n        &lt;/plugin&gt;\n    &lt;/plugins&gt;\n&lt;/build&gt;\n\n\nGradle Configuration\nIf you’re using Gradle, update your build.gradle:\ndependencies {\n    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'\n    runtimeOnly 'mysql:mysql-connector-java'\n    // ... other dependencies\n}\n\njar {\n    enabled = false\n}\n\nbootJar {\n    enabled = true\n}",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#testing-profile-configuration",
+    "href": "modules/02-steps/01-first-step.html#testing-profile-configuration",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Testing Profile Configuration",
+    "text": "Testing Profile Configuration\n\nTesting Development Profile\nRun your application locally to verify the development profile works:\n# Run with development profile (default)\nmvn spring-boot:run\n\n# Or explicitly specify the development profile\nmvn spring-boot:run -Dspring-boot.run.profiles=dev\n\n\nTesting Production Profile Locally\nYou can test the production profile locally by setting environment variables:\n# Set environment variables for production database\nexport DB_URL=\"jdbc:mysql://localhost:3306/myapp_test\"\nexport DB_USERNAME=\"test_user\"\nexport DB_PASSWORD=\"test_password\"\n\n# Run with production profile\nmvn spring-boot:run -Dspring-boot.run.profiles=prod\n\n\n\n\n\n\nWarningDatabase Connection Testing\n\n\n\nMake sure you have a test database available when testing the production profile locally. The application will fail to start if it can’t connect to the specified database.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#creating-a-production-ready-jar",
+    "href": "modules/02-steps/01-first-step.html#creating-a-production-ready-jar",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Creating a Production-Ready JAR",
+    "text": "Creating a Production-Ready JAR\nBuild your application for deployment:\n# Clean and build the project\nmvn clean package\n\n# The executable JAR will be created in the target directory\nls -la target/*.jar\nYou should see output similar to:\n-rw-r--r-- 1 user user 45M Dec  1 10:30 my-spring-app-1.0.0.jar",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#checkpoint",
+    "href": "modules/02-steps/01-first-step.html#checkpoint",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Checkpoint",
+    "text": "Checkpoint\nBefore moving on, verify that:\n\nYou have created application.properties, application-dev.properties, and application-prod.properties\nYour application starts successfully with the development profile\nYou can build an executable JAR file using mvn clean package\nThe JAR file is created in your target directory\nYour database dependencies are properly configured in your build file\n\n\nTesting Your Configuration\nRun this quick test to ensure everything is working:\n# Test that profiles are being loaded correctly\njava -jar target/my-spring-app-1.0.0.jar --spring.profiles.active=prod --spring.datasource.url=jdbc:mysql://localhost:3306/test\n\n\n\n\n\n\nNote\n\n\n\nIf you see a database connection error, that’s expected since we haven’t set up the production database yet. The important thing is that the application attempts to start with the production profile.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#what-just-happened",
+    "href": "modules/02-steps/01-first-step.html#what-just-happened",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "What Just Happened?",
+    "text": "What Just Happened?\nYou’ve successfully configured your Spring Boot application with separate development and production profiles. This separation allows you to:\n\nDevelop locally with a development database and debug logging\nDeploy to production with optimized settings and environment-specific configurations\nMaintain security by using environment variables for sensitive production data\nEnsure consistency across different deployment environments\n\nThe production profile is now ready to use environment variables for database configuration, which we’ll set up on the AWS Lightsail instance in the next step. Your application can also be packaged as an executable JAR that’s ready for deployment.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  },
+  {
+    "objectID": "modules/02-steps/01-first-step.html#key-takeaways",
+    "href": "modules/02-steps/01-first-step.html#key-takeaways",
+    "title": "Step 1: Configure Development and Production Profiles in Spring Boot",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nSpring Boot profiles enable environment-specific configurations\nEnvironment variables provide a secure way to manage production credentials\nExecutable JARs make deployment simpler and more portable\nProper profile configuration is essential for cloud deployments\n\nIn the next step, we’ll create and configure your AWS Lightsail instance where this production-ready application will be deployed.",
+    "crumbs": [
+      "Steps",
+      "First Step"
+    ]
+  }
+]

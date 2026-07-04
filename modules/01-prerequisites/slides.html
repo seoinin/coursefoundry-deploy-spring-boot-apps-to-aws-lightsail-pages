@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-contrib/naquiz-styles-1.0.4/buttons.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <meta name="author" content="Spring Boot Deployment Course">
+  <title>Deploy Spring Boot Apps to AWS Lightsail – Prerequisites for Deploying Spring Boot Apps to AWS Lightsail</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6564a9e43975916c66505930fa59cc4c.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Prerequisites for Deploying Spring Boot Apps to AWS Lightsail – Deploy Spring Boot Apps to AWS Lightsail">
+<meta property="og:description" content="Setting Up Your Development Environment">
+<meta property="og:site_name" content="Deploy Spring Boot Apps to AWS Lightsail">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Prerequisites for Deploying Spring Boot Apps to AWS Lightsail</h1>
+  <p class="subtitle">Setting Up Your Development Environment</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Spring Boot Deployment Course 
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<section id="prerequisites-overview" class="title-slide slide level1 center">
+<h1>Prerequisites Overview</h1>
+
+</section>
+<section id="what-well-cover-today" class="slide level2">
+<h2>What We’ll Cover Today</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Accounts &amp; Services</strong></p>
+<ul>
+<li class="fragment">AWS Account setup</li>
+<li class="fragment">Domain registration options</li>
+</ul>
+<p><strong>Development Environment</strong></p>
+<ul>
+<li class="fragment">Java JDK requirements</li>
+<li class="fragment">Build tools (Maven/Gradle)</li>
+<li class="fragment">IDE recommendations</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Command Line Tools</strong></p>
+<ul>
+<li class="fragment">SSH client setup</li>
+<li class="fragment">Git version control</li>
+<li class="fragment">AWS CLI (optional)</li>
+</ul>
+<p><strong>Knowledge Prerequisites</strong></p>
+<ul>
+<li class="fragment">Spring Boot fundamentals</li>
+<li class="fragment">Basic Linux commands</li>
+<li class="fragment">Network concepts</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>This lesson establishes the foundation for our deployment journey. We’ll ensure everyone has the necessary tools and knowledge before diving into the actual deployment process.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="required-accounts-and-services" class="title-slide slide level1 center">
+<h1>Required Accounts and Services</h1>
+
+</section>
+<section id="aws-account-setup" class="slide level2">
+<h2>AWS Account Setup</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><strong>Steps to get started:</strong></p>
+<ol type="1">
+<li class="fragment">Visit <a href="https://aws.amazon.com" class="uri">https://aws.amazon.com</a></li>
+<li class="fragment">Click “Create an AWS Account”</li>
+<li class="fragment">Complete registration process</li>
+<li class="fragment">Add payment information (required)</li>
+</ol>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="200"></p>
+<figcaption>AWS Logo</figcaption>
+</figure>
+</div>
+<p><strong>Free Tier Benefits:</strong></p>
+<ul>
+<li class="fragment">750 hours/month for first 12 months</li>
+<li class="fragment">Perfect for learning and testing</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Even though we mention payment information is required, emphasize that the free tier provides substantial resources for learning. Students won’t incur charges if they stay within free tier limits.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="domain-registration-optional" class="slide level2">
+<h2>Domain Registration (Optional)</h2>
+<p><strong>Recommended Domain Registrars:</strong></p>
+<ul>
+<li class="fragment">AWS Route 53 (integrated with AWS services)</li>
+<li class="fragment">Namecheap (popular and affordable)</li>
+<li class="fragment">GoDaddy (widely recognized)</li>
+<li class="fragment">Cloudflare (includes CDN benefits)</li>
+</ul>
+<p><strong>Why register a domain?</strong></p>
+<ul>
+<li class="fragment">Professional appearance</li>
+<li class="fragment">Easier to remember than IP addresses</li>
+<li class="fragment">SSL certificate setup is simpler</li>
+</ul>
+<aside class="notes">
+<p>While optional, having a custom domain significantly improves the professional appearance of deployed applications and makes SSL certificate management easier.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="development-environment-setup" class="title-slide slide level1 center">
+<h1>Development Environment Setup</h1>
+
+</section>
+<section id="java-development-kit-jdk" class="slide level2">
+<h2>Java Development Kit (JDK)</h2>
+<p><strong>Requirements: JDK 17 or later</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="co"># Check your current Java version</span></span>
+<span id="cb1-2"><a></a><span class="ex">java</span> <span class="at">-version</span></span>
+<span id="cb1-3"><a></a><span class="ex">javac</span> <span class="at">-version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Installation Options:</strong></p>
+<ul>
+<li class="fragment"><strong>Oracle JDK</strong>: Commercial support available</li>
+<li class="fragment"><strong>OpenJDK</strong>: Open source, free to use</li>
+<li class="fragment"><strong>Package Managers</strong>: Easy installation and updates</li>
+</ul>
+<aside class="notes">
+<p>JDK 17 is the current Long Term Support (LTS) version and is recommended for production deployments. It provides stability and long-term support from the Java community.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="build-tools-maven-vs-gradle" class="slide level2">
+<h2>Build Tools: Maven vs Gradle</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Maven</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="co"># Check installation</span></span>
+<span id="cb2-2"><a></a><span class="ex">mvn</span> <span class="at">-version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">XML-based configuration</li>
+<li class="fragment">Extensive plugin ecosystem</li>
+<li class="fragment">Spring Boot’s default choice</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Gradle</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="co"># Check installation</span></span>
+<span id="cb3-2"><a></a><span class="ex">gradle</span> <span class="at">-version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Groovy/Kotlin DSL</li>
+<li class="fragment">Faster build performance</li>
+<li class="fragment">Flexible configuration</li>
+</ul>
+</div></div>
+<p><strong>Choose one based on your team’s preference</strong></p>
+<aside class="notes">
+<p>Both Maven and Gradle are excellent choices. Maven is more traditional and widely used in enterprise environments, while Gradle offers more flexibility and better performance for complex builds.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ide-recommendations" class="slide level2">
+<h2>IDE Recommendations</h2>
+<p><strong>Top Spring Boot IDEs:</strong></p>
+<ul>
+<li class="fragment"><strong>IntelliJ IDEA</strong> - Excellent Spring Boot integration</li>
+<li class="fragment"><strong>Visual Studio Code</strong> - Lightweight with Java extensions<br>
+</li>
+<li class="fragment"><strong>Eclipse + Spring Tools Suite</strong> - Free and powerful</li>
+<li class="fragment"><strong>Spring Tool Suite (STS)</strong> - Purpose-built for Spring</li>
+</ul>
+<p><strong>Key Features to Look For:</strong></p>
+<ul>
+<li class="fragment">Spring Boot run configurations</li>
+<li class="fragment">Application property auto-completion</li>
+<li class="fragment">Built-in Maven/Gradle support</li>
+</ul>
+<aside class="notes">
+<p>The choice of IDE is largely personal preference, but having good Spring Boot tooling support will significantly improve your development experience and productivity.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="command-line-tools" class="title-slide slide level1 center">
+<h1>Command Line Tools</h1>
+
+</section>
+<section id="ssh-client-setup" class="slide level2">
+<h2>SSH Client Setup</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Windows:</strong></p>
+<ul>
+<li class="fragment">Built-in OpenSSH (Windows 10+)</li>
+<li class="fragment">PuTTY (traditional option)</li>
+<li class="fragment">Windows Subsystem for Linux</li>
+</ul>
+<p><strong>macOS/Linux:</strong></p>
+<ul>
+<li class="fragment">Built-in OpenSSH client</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Test SSH availability:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="fu">ssh</span> <span class="at">-V</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>You’ll use SSH to:</strong></p>
+<ul>
+<li class="fragment">Connect to Lightsail instances</li>
+<li class="fragment">Deploy applications</li>
+<li class="fragment">Monitor server performance</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>SSH is crucial for server management. Modern Windows includes OpenSSH by default, but older versions might need PuTTY or WSL installation.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="git-version-control" class="slide level2">
+<h2>Git Version Control</h2>
+<p><strong>Essential for project management:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="co"># Check Git installation</span></span>
+<span id="cb5-2"><a></a><span class="fu">git</span> <span class="at">--version</span></span>
+<span id="cb5-3"><a></a></span>
+<span id="cb5-4"><a></a><span class="co"># Basic Git workflow you'll use</span></span>
+<span id="cb5-5"><a></a><span class="fu">git</span> add .</span>
+<span id="cb5-6"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Deploy ready"</span></span>
+<span id="cb5-7"><a></a><span class="fu">git</span> push origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Installation:</strong></p>
+<ul>
+<li class="fragment">Windows: Download from <a href="https://git-scm.com/">git-scm.com</a></li>
+<li class="fragment">macOS: Homebrew or Xcode Command Line Tools</li>
+<li class="fragment">Linux: Package manager (<code>apt install git</code>)</li>
+</ul>
+<aside class="notes">
+<p>Git isn’t just for code storage—we’ll use it to deploy code to our servers and manage different versions of our applications across environments.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="aws-cli-recommended" class="slide level2">
+<h2>AWS CLI (Recommended)</h2>
+<p><strong>Helpful for advanced configurations:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="co"># Check installation</span></span>
+<span id="cb6-2"><a></a><span class="ex">aws</span> <span class="at">--version</span></span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a><span class="co"># Configure credentials</span></span>
+<span id="cb6-5"><a></a><span class="ex">aws</span> configure</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li class="fragment">Automate AWS resource management</li>
+<li class="fragment">Script deployment processes<br>
+</li>
+<li class="fragment">Access services not available in web console</li>
+</ul>
+<aside class="notes">
+<p>While not strictly required for basic deployments, AWS CLI becomes invaluable for automating deployment processes and managing resources programmatically.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="spring-boot-knowledge-prerequisites" class="title-slide slide level1 center">
+<h1>Spring Boot Knowledge Prerequisites</h1>
+
+</section>
+<section id="core-spring-boot-concepts" class="slide level2 smaller">
+<h2>Core Spring Boot Concepts</h2>
+<p><strong>Essential understanding:</strong></p>
+<ul>
+<li class="fragment"><strong>Spring Boot Starters</strong>: Dependency management made easy</li>
+<li class="fragment"><strong>Application Properties</strong>: Environment-specific configurations</li>
+<li class="fragment"><strong>Profiles</strong>: Different settings for dev/prod environments<br>
+</li>
+<li class="fragment"><strong>Auto-configuration</strong>: Spring Boot’s “magic” explained</li>
+<li class="fragment"><strong>Embedded Servers</strong>: Tomcat, Jetty, Undertow options</li>
+</ul>
+</section>
+<section id="core-spring-boot-concepts-1" class="slide level2 smaller">
+<h2>Core Spring Boot Concepts</h2>
+<p><strong>Configuration Example:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a></a><span class="co"># application-prod.yml</span></span>
+<span id="cb7-2"><a></a><span class="fu">server</span><span class="kw">:</span></span>
+<span id="cb7-3"><a></a><span class="at">  </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">8080</span></span>
+<span id="cb7-4"><a></a><span class="fu">spring</span><span class="kw">:</span></span>
+<span id="cb7-5"><a></a><span class="at">  </span><span class="fu">profiles</span><span class="kw">:</span></span>
+<span id="cb7-6"><a></a><span class="at">    </span><span class="fu">active</span><span class="kw">:</span><span class="at"> prod</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside class="notes">
+<p>These concepts form the foundation of effective Spring Boot deployment. Understanding profiles is particularly crucial for managing different environments.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="database-and-rest-knowledge" class="slide level2">
+<h2>Database and REST Knowledge</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Database Integration:</strong></p>
+<ul>
+<li class="fragment">Spring Data JPA basics</li>
+<li class="fragment">JDBC connection configuration</li>
+<li class="fragment">Database migration tools (Flyway/Liquibase)</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb8-1"><a></a><span class="at">@Entity</span></span>
+<span id="cb8-2"><a></a><span class="kw">public</span> <span class="kw">class</span> User <span class="op">{</span></span>
+<span id="cb8-3"><a></a>    <span class="at">@Id</span></span>
+<span id="cb8-4"><a></a>    <span class="at">@GeneratedValue</span></span>
+<span id="cb8-5"><a></a>    <span class="kw">private</span> <span class="bu">Long</span> id<span class="op">;</span></span>
+<span id="cb8-6"><a></a>    <span class="kw">private</span> <span class="bu">String</span> name<span class="op">;</span></span>
+<span id="cb8-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><strong>RESTful Services:</strong></p>
+<ul>
+<li class="fragment"><code>@RestController</code> usage</li>
+<li class="fragment">HTTP methods (GET, POST, PUT, DELETE)</li>
+<li class="fragment">JSON serialization with Jackson</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb9-1"><a></a><span class="at">@RestController</span></span>
+<span id="cb9-2"><a></a><span class="kw">public</span> <span class="kw">class</span> UserController <span class="op">{</span></span>
+<span id="cb9-3"><a></a>    <span class="at">@GetMapping</span><span class="op">(</span><span class="st">"/users"</span><span class="op">)</span></span>
+<span id="cb9-4"><a></a>    <span class="kw">public</span> <span class="bu">List</span><span class="op">&lt;</span>User<span class="op">&gt;</span> <span class="fu">getUsers</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-5"><a></a>        <span class="cf">return</span> userService<span class="op">.</span><span class="fu">findAll</span><span class="op">();</span></span>
+<span id="cb9-6"><a></a>    <span class="op">}</span></span>
+<span id="cb9-7"><a></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<aside class="notes">
+<p>These are the building blocks of most Spring Boot applications. Even if you’re not an expert, having basic familiarity with these concepts will help you understand deployment configurations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="linux-and-server-administration-basics" class="title-slide slide level1 center">
+<h1>Linux and Server Administration Basics</h1>
+
+</section>
+<section id="essential-linux-commands" class="slide level2 incremental">
+<h2>Essential Linux Commands</h2>
+<p><strong>File and Directory Operations:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="fu">ls</span> <span class="at">-la</span>          <span class="co"># List files with details</span></span>
+<span id="cb10-2"><a></a><span class="bu">cd</span> /path/to/dir <span class="co"># Change directory  </span></span>
+<span id="cb10-3"><a></a><span class="fu">mkdir</span> app-logs  <span class="co"># Create directory</span></span>
+<span id="cb10-4"><a></a><span class="fu">rm</span> <span class="at">-rf</span> old-app  <span class="co"># Remove files/directories</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>File Viewing and Editing:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a></a><span class="fu">cat</span> application.log     <span class="co"># View file contents</span></span>
+<span id="cb11-2"><a></a><span class="fu">tail</span> <span class="at">-f</span> application.log <span class="co"># Follow log files</span></span>
+<span id="cb11-3"><a></a><span class="fu">nano</span> config.properties <span class="co"># Edit files</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Process Management:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="fu">ps</span> aux <span class="kw">|</span> <span class="fu">grep</span> java     <span class="co"># Find Java processes</span></span>
+<span id="cb12-2"><a></a><span class="fu">sudo</span> systemctl start myapp  <span class="co"># Start services</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside class="notes">
+<p>You don’t need to be a Linux expert, but these commands will be essential for managing your deployed applications, viewing logs, and troubleshooting issues.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="file-permissions-and-services" class="slide level2">
+<h2>File Permissions and Services</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>File Permissions:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a></a><span class="co"># Make file executable</span></span>
+<span id="cb13-2"><a></a><span class="fu">chmod</span> +x deploy.sh</span>
+<span id="cb13-3"><a></a></span>
+<span id="cb13-4"><a></a><span class="co"># Change ownership</span></span>
+<span id="cb13-5"><a></a><span class="fu">sudo</span> chown app:app myapp.jar</span>
+<span id="cb13-6"><a></a></span>
+<span id="cb13-7"><a></a><span class="co"># Common permission patterns</span></span>
+<span id="cb13-8"><a></a><span class="fu">chmod</span> 755 <span class="co"># rwxr-xr-x</span></span>
+<span id="cb13-9"><a></a><span class="fu">chmod</span> 644 <span class="co"># rw-r--r--</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><strong>Service Management:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="co"># Service operations</span></span>
+<span id="cb14-2"><a></a><span class="fu">sudo</span> systemctl start myapp</span>
+<span id="cb14-3"><a></a><span class="fu">sudo</span> systemctl enable myapp  </span>
+<span id="cb14-4"><a></a><span class="fu">sudo</span> systemctl status myapp</span>
+<span id="cb14-5"><a></a><span class="fu">sudo</span> systemctl restart myapp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<aside class="notes">
+<p>Understanding permissions is crucial for security, and systemd services are how we’ll run our Spring Boot applications in production environments.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="network-and-security-basics" class="title-slide slide level1 center">
+<h1>Network and Security Basics</h1>
+
+</section>
+<section id="understanding-ports-and-firewalls" class="slide level2 smaller">
+<h2>Understanding Ports and Firewalls</h2>
+<p><strong>Common Ports You’ll Use:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Service</th>
+<th>Port</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HTTP</td>
+<td>80</td>
+<td>Web traffic</td>
+</tr>
+<tr class="even">
+<td>HTTPS</td>
+<td>443</td>
+<td>Secure web traffic</td>
+</tr>
+<tr class="odd">
+<td>SSH</td>
+<td>22</td>
+<td>Server access</td>
+</tr>
+<tr class="even">
+<td>Spring Boot</td>
+<td>8080</td>
+<td>Default application port</td>
+</tr>
+<tr class="odd">
+<td>MySQL</td>
+<td>3306</td>
+<td>Database connections</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Firewall Concepts:</strong></p>
+<ul>
+<li class="fragment">Inbound vs.&nbsp;Outbound rules</li>
+<li class="fragment">Port ranges and protocols</li>
+<li class="fragment">Source IP restrictions</li>
+</ul>
+<aside class="notes">
+<p>Understanding ports is essential for configuring firewalls and ensuring your applications are accessible. AWS Lightsail has a simple firewall interface that makes this manageable.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="pre-deployment-checklist" class="title-slide slide level1 center">
+<h1>Pre-Deployment Checklist</h1>
+
+</section>
+<section id="verify-your-setup" class="slide level2">
+<h2>Verify Your Setup</h2>
+<p><strong>Complete this checklist before proceeding:</strong></p>
+<ul>
+<li class="fragment"><label><input type="checkbox">AWS account with billing information configured</label></li>
+<li class="fragment"><label><input type="checkbox">JDK 17+ installed and working</label></li>
+<li class="fragment"><label><input type="checkbox">Maven or Gradle build tool available</label></li>
+<li class="fragment"><label><input type="checkbox">Git version control system installed</label></li>
+<li class="fragment"><label><input type="checkbox">SSH client tested and functional</label></li>
+<li class="fragment"><label><input type="checkbox">Basic Spring Boot application available</label></li>
+<li class="fragment"><label><input type="checkbox">Understanding of Spring Boot profiles</label></li>
+<li class="fragment"><strong>Test Command:</strong><code>bash java -version &amp;&amp; mvn -version &amp;&amp; git --version &amp;&amp; ssh -V</code></li>
+</ul>
+<aside class="notes">
+<p>Taking time to verify your setup now will save hours of troubleshooting later. Each tool plays a crucial role in the deployment process.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="sample-application-ready" class="slide level2">
+<h2>Sample Application Ready</h2>
+<p><strong>Don’t have a Spring Boot app?</strong></p>
+<p>We’ll provide a sample application that includes:</p>
+<ul>
+<li class="fragment">REST endpoints for testing</li>
+<li class="fragment">Database integration examples</li>
+<li class="fragment">Production-ready configuration</li>
+<li class="fragment">Health check endpoints</li>
+<li class="fragment">Logging configuration</li>
+</ul>
+<p><strong>Quick Test:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="ex">./mvnw</span> spring-boot:run</span>
+<span id="cb15-2"><a></a><span class="co"># Visit http://localhost:8080</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside class="notes">
+<p>Even if students don’t have their own application ready, our sample application will demonstrate all the concepts they need to apply to their own projects.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="summary-and-next-steps" class="title-slide slide level1 center">
+<h1>Summary and Next Steps</h1>
+
+</section>
+<section id="key-takeaways" class="slide level2">
+<h2>Key Takeaways</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Essential Requirements:</strong></p>
+<ul>
+<li class="fragment">AWS account for cloud resources</li>
+<li class="fragment">Java development environment</li>
+<li class="fragment">Command line tool proficiency</li>
+<li class="fragment">Basic Spring Boot knowledge</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Success Factors:</strong></p>
+<ul>
+<li class="fragment">Understanding of Linux basics</li>
+<li class="fragment">Network and security concepts</li>
+<li class="fragment">Version control with Git</li>
+<li class="fragment">Service management principles</li>
+</ul>
+</div></div>
+<p><strong>You’re Ready When:</strong> All checklist items are complete and you can run a Spring Boot application locally</p>
+<aside class="notes">
+<p>Having these prerequisites in place ensures students can focus on learning deployment concepts rather than fighting with tool configuration issues.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="whats-coming-next" class="slide level2">
+<h2>What’s Coming Next</h2>
+<p><strong>Our Deployment Journey:</strong></p>
+<ol type="1">
+<li class="fragment"><strong>Application Configuration</strong> - Setting up profiles and properties</li>
+<li class="fragment"><strong>Lightsail Instance Creation</strong> - Provisioning your server</li>
+<li class="fragment"><strong>Server Environment Setup</strong> - Installing Java and dependencies<br>
+</li>
+<li class="fragment"><strong>Application Deployment</strong> - Getting your app running</li>
+<li class="fragment"><strong>Production Optimization</strong> - SSL, monitoring, and scaling</li>
+</ol>
+<p><strong>Ready to Deploy?</strong> Let’s build something amazing! 🚀</p>
+<aside class="notes">
+<p>This roadmap gives students confidence about what’s ahead and shows them the logical progression from prerequisites to a fully deployed, production-ready application.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+    
+
+</body></html>
